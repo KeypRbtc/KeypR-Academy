@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KeypR Academy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #0a0a14;
+    --card: #12122a;
+    --text: #f0f0f0;
+    --muted: #888;
+    --gold: #ffd700;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: 100%;
+    background: linear-gradient(135deg, #0a0a14, #12122a);
+    border-bottom: 2px solid rgba(255,215,0,0.2);
+    padding: 32px 24px 24px;
+    text-align: center;
+  }
+
+  .logo-ring {
+    width: 80px; height: 80px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #ffd700, #f7931a, #9b59b6);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    box-shadow: 0 0 40px rgba(255,215,0,0.4);
+    animation: spin-glow 4s ease-in-out infinite;
+  }
+
+  @keyframes spin-glow {
+    0%,100% { box-shadow: 0 0 40px rgba(255,215,0,0.4); }
+    50% { box-shadow: 0 0 70px rgba(255,215,0,0.7), 0 0 100px rgba(247,147,26,0.3); }
+  }
+
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.8rem;
+    background: linear-gradient(90deg, #ffd700, #f7931a, #9b59b6, #3498db);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
+  }
+
+  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:300%} }
+
+  header p {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    margin-top: 12px;
+    font-size: 1.05rem;
+    color: #bbb;
+    font-weight: 600;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  main {
+    max-width: 900px;
+    width: 100%;
+    padding: 48px 20px;
+  }
+
+  .section-label {
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .track-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .track-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 32px 24px;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(30px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .track-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0.06;
+    transition: opacity 0.3s;
+  }
+
+  .track-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+  .track-card:hover::before { opacity: 0.12; }
+
+  .track-icon {
+    font-size: 3.2rem;
+    margin-bottom: 16px;
+    display: block;
+    filter: drop-shadow(0 0 12px var(--accent));
+  }
+
+  .track-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .track-sub {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .track-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 600;
+  }
+
+  .track-badge {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 6px 16px;
+    border-radius: 99px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .badge-live {
+    background: rgba(39,174,96,0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(39,174,96,0.3);
+  }
+
+  .badge-soon {
+    background: rgba(255,255,255,0.07);
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .coming-soon { opacity: 0.5; cursor: default; pointer-events: none; }
+
+  footer {
+    margin-top: auto;
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    width: 100%;
+  }
+
+  footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-ring">🎓</div>
+  <h1>KeypR Academy</h1>
+  <p>Knowledge is the real asset</p>
+  <div class="tagline">A learning journey through AI, Bitcoin, Common Law, and Business — built for the next generation.</div>
+</header>
+
+<main>
+  <div class="section-label">Choose Your Track</div>
+
+  <div class="track-grid">
+
+    <a href="ai-course.html" class="track-card" style="--accent:#7c3aed; animation-delay:0.05s;">
+      <span class="track-icon">🤖</span>
+      <div class="track-sub">Track 1</div>
+      <div class="track-name">AI Literacy</div>
+      <div class="track-desc">What is AI, how does it think, and how do you communicate with it? Learn prompt engineering from the ground up.</div>
+      <div class="track-badge badge-live">✅ Live — 18 Modules</div>
+    </a>
+
+    <a href="bitcoin-course.html" class="track-card" style="--accent:#f7931a; animation-delay:0.12s;">
+      <span class="track-icon">₿</span>
+      <div class="track-sub">Track 2</div>
+      <div class="track-name">Bitcoin</div>
+      <div class="track-desc">Why money was invented, what's broken about it, and how Bitcoin is changing the rules of the financial game.</div>
+      <div class="track-badge badge-live">✅ Live — 12 Modules</div>
+    </a>
+
+    <div class="track-card coming-soon" style="--accent:#e74c3c; animation-delay:0.19s;">
+      <span class="track-icon">⚖️</span>
+      <div class="track-sub">Track 3</div>
+      <div class="track-name">Common Law</div>
+      <div class="track-desc">Your rights, how courts work, the difference between law and rules, and how to think like a legal advocate.</div>
+      <div class="track-badge badge-soon">🔜 Coming Soon</div>
+    </div>
+
+    <div class="track-card coming-soon" style="--accent:#27ae60; animation-delay:0.26s;">
+      <span class="track-icon">💼</span>
+      <div class="track-sub">Track 4</div>
+      <div class="track-name">Business</div>
+      <div class="track-desc">Entrepreneurship, value creation, money management, and how to build something that matters — starting at any age.</div>
+      <div class="track-badge badge-soon">🔜 Coming Soon</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span>KeypR Academy</span> · Knowledge is the real asset · keyprbtc.github.io
+</footer>
+
+</body>
+</html>
