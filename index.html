@@ -3,16 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KeypR Academy</title>
+<title>KeypR Academy – Business Track</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Nunito:wght@400;600;700;800&display=swap');
 
   :root {
-    --bg: #0a0a14;
-    --card: #12122a;
+    --biz: #059669;
+    --biz-dark: #047857;
+    --biz2: #10b981;
+    --gold: #f59e0b;
+    --gold2: #fbbf24;
+    --navy: #0f1923;
+    --purple: #7c3aed;
+    --red: #dc2626;
+    --sky: #0ea5e9;
+    --bg: #0a1208;
+    --card-bg: #111a0f;
     --text: #f0f0f0;
-    --muted: #888;
-    --gold: #ffd700;
+    --muted: #9ca3af;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,243 +30,2435 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
+  /* ── HEADER ── */
   header {
-    width: 100%;
-    background: linear-gradient(135deg, #0a0a14, #12122a);
-    border-bottom: 2px solid rgba(255,215,0,0.2);
-    padding: 32px 24px 24px;
-    text-align: center;
+    background: linear-gradient(135deg, #050d03 0%, #0d1f09 50%, #050d03 100%);
+    border-bottom: 3px solid var(--biz);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 24px rgba(5,150,105,0.25);
   }
 
-  .logo-ring {
-    width: 80px; height: 80px;
-    margin: 0 auto 16px;
-    background: linear-gradient(135deg, #ffd700, #f7931a, #9b59b6);
-    border-radius: 50%;
+  .logo { display: flex; align-items: center; gap: 14px; }
+
+  .biz-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--biz), var(--gold));
+    border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    box-shadow: 0 0 40px rgba(255,215,0,0.4);
-    animation: spin-glow 4s ease-in-out infinite;
+    font-size: 26px;
+    box-shadow: 0 0 20px rgba(5,150,105,0.5);
+    animation: pulse-green 2.5s ease-in-out infinite;
   }
 
-  @keyframes spin-glow {
-    0%,100% { box-shadow: 0 0 40px rgba(255,215,0,0.4); }
-    50% { box-shadow: 0 0 70px rgba(255,215,0,0.7), 0 0 100px rgba(247,147,26,0.3); }
+  @keyframes pulse-green {
+    0%,100% { box-shadow: 0 0 20px rgba(5,150,105,0.5); }
+    50% { box-shadow: 0 0 40px rgba(5,150,105,0.8), 0 0 60px rgba(245,158,11,0.3); }
   }
 
-  header h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 2.8rem;
-    background: linear-gradient(90deg, #ffd700, #f7931a, #9b59b6, #3498db);
-    background-size: 300%;
+  .logo-text h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.5rem;
+    background: linear-gradient(90deg, var(--biz2), var(--gold2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 5s linear infinite;
+    line-height: 1;
   }
 
-  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:300%} }
-
-  header p {
+  .logo-text p {
+    font-size: 0.72rem;
     color: var(--muted);
-    font-size: 1rem;
     font-weight: 700;
-    margin-top: 8px;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
-  .tagline {
-    margin-top: 12px;
-    font-size: 1.05rem;
-    color: #bbb;
-    font-weight: 600;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+  .xp-bar-wrap { flex: 1; max-width: 340px; min-width: 180px; }
+
+  .xp-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--gold2);
+    margin-bottom: 5px;
   }
 
-  main {
-    max-width: 900px;
-    width: 100%;
-    padding: 48px 20px;
+  .xp-track {
+    height: 13px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid rgba(5,150,105,0.3);
   }
 
-  .section-label {
+  .xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--biz), var(--gold2));
+    border-radius: 99px;
+    transition: width 0.6s ease;
+    width: 0%;
+  }
+
+  /* ── DASHBOARD ── */
+  #dashboard { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
+
+  .welcome-banner {
     text-align: center;
-    font-family: 'Fredoka One', cursive;
-    font-size: 1rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    padding: 32px 20px 20px;
+    animation: fadeInDown 0.7s ease;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .welcome-banner h2 {
+    font-family: 'Righteous', cursive;
+    font-size: 2.2rem;
+    background: linear-gradient(90deg, var(--biz2), var(--gold2), var(--biz2));
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+
+  .welcome-banner p {
     color: var(--muted);
-    margin-bottom: 24px;
+    font-size: 0.98rem;
+    margin-top: 8px;
+    font-weight: 600;
   }
 
-  .track-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 24px;
-    margin-bottom: 60px;
-  }
-
-  .track-card {
-    background: var(--card);
-    border-radius: 24px;
-    padding: 32px 24px;
+  .section-divider {
     text-align: center;
-    border: 2px solid transparent;
+    margin: 44px 0 24px;
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--biz), transparent);
+  }
+
+  .section-divider span {
+    position: relative;
+    background: var(--bg);
+    padding: 0 20px;
+    font-family: 'Righteous', cursive;
+    font-size: 1.1rem;
+    color: var(--biz2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+  }
+
+  .module-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 22px;
     cursor: pointer;
-    text-decoration: none;
-    display: block;
+    border: 2px solid transparent;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    animation: fadeUp 0.6s ease both;
+    animation: fadeInUp 0.5s ease both;
   }
 
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(30px); }
-    to   { opacity:1; transform:translateY(0); }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .track-card::before {
+  .module-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--accent);
+    background: var(--accent, var(--biz));
     opacity: 0.06;
     transition: opacity 0.3s;
   }
 
-  .track-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
-  .track-card:hover::before { opacity: 0.12; }
+  .module-card:hover { transform: translateY(-6px); border-color: var(--accent, var(--biz)); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+  .module-card:hover::before { opacity: 0.13; }
 
-  .track-icon {
-    font-size: 3.2rem;
-    margin-bottom: 16px;
-    display: block;
-    filter: drop-shadow(0 0 12px var(--accent));
+  .card-emoji { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+  .card-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent, var(--biz)); margin-bottom: 4px; }
+  .card-title { font-family: 'Righteous', cursive; font-size: 1.2rem; color: #fff; margin-bottom: 5px; line-height: 1.2; }
+  .card-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.5; font-weight: 600; }
+  .card-xp { margin-top: 12px; display: inline-block; background: rgba(255,255,255,0.06); border-radius: 99px; padding: 3px 11px; font-size: 0.73rem; font-weight: 800; color: var(--gold2); }
+  .card-progress { margin-top: 9px; height: 5px; background: rgba(255,255,255,0.07); border-radius: 99px; overflow: hidden; }
+  .card-progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent, var(--biz)), var(--gold2)); transition: width 0.5s ease; }
+  .card-badge { position: absolute; top: 14px; right: 14px; font-size: 1.3rem; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    backdrop-filter: blur(4px);
   }
 
-  .track-name {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.6rem;
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: #0d1a0b;
+    border-radius: 22px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(5,150,105,0.35);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.8), 0 0 60px rgba(5,150,105,0.1);
+    animation: modalIn 0.3s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.93) translateY(18px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-header {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  .modal-header-icon { font-size: 1.9rem; }
+
+  .modal-header h2 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.3rem;
     color: #fff;
-    margin-bottom: 8px;
+    flex: 1;
   }
 
-  .track-sub {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
+  .close-btn {
+    background: rgba(255,255,255,0.09);
+    border: none;
+    color: #fff;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  .track-desc {
-    font-size: 0.88rem;
+  .close-btn:hover { background: rgba(255,255,255,0.18); }
+
+  .modal-body { display: flex; flex: 1; overflow: hidden; }
+
+  .lesson-nav {
+    width: 210px;
+    flex-shrink: 0;
+    border-right: 2px solid rgba(255,255,255,0.05);
+    overflow-y: auto;
+    padding: 10px 7px;
+  }
+
+  .lesson-tab {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
     color: var(--muted);
+    padding: 9px 11px;
+    border-radius: 9px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 3px;
+    transition: all 0.2s;
+    line-height: 1.3;
+  }
+
+  .lesson-tab:hover { background: rgba(255,255,255,0.05); color: #fff; }
+  .lesson-tab.active { background: rgba(5,150,105,0.15); color: var(--biz2); }
+  .lesson-tab.done { color: var(--gold2); }
+  .lesson-tab.done::after { content: ' ✓'; }
+
+  .lesson-content { flex: 1; overflow-y: auto; padding: 22px; }
+
+  .lesson-panel h3 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.25rem;
+    color: var(--biz2);
+    margin: 18px 0 7px;
+  }
+
+  .lesson-panel h3:first-child { margin-top: 0; }
+
+  .lesson-panel p {
+    font-size: 0.89rem;
+    line-height: 1.7;
+    color: #ccc;
+    margin-bottom: 11px;
+    font-weight: 600;
+  }
+
+  .info-box {
+    background: rgba(5,150,105,0.1);
+    border-left: 4px solid var(--biz);
+    border-radius: 0 11px 11px 0;
+    padding: 13px 15px;
+    margin: 13px 0;
+    font-size: 0.87rem;
+    color: #86efac;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .fun-fact {
+    background: rgba(245,158,11,0.08);
+    border: 2px dashed rgba(245,158,11,0.3);
+    border-radius: 13px;
+    padding: 13px 15px;
+    margin: 13px 0;
+    font-size: 0.87rem;
+    color: #fde68a;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .fun-fact::before { content: '💡 Real World: '; color: var(--gold2); }
+
+  .vocab-box {
+    background: rgba(124,58,237,0.1);
+    border: 2px solid rgba(124,58,237,0.3);
+    border-radius: 13px;
+    padding: 13px 15px;
+    margin: 13px 0;
+  }
+
+  .vocab-box .vocab-title {
+    font-family: 'Righteous', cursive;
+    color: #c4b5fd;
+    font-size: 0.88rem;
+    margin-bottom: 7px;
+  }
+
+  .vocab-box p { font-size: 0.84rem; color: #c4b5fd; margin-bottom: 5px; }
+  .vocab-box strong { color: #ede9fe; }
+
+  .challenge-box {
+    background: rgba(245,158,11,0.07);
+    border: 2px solid rgba(245,158,11,0.25);
+    border-radius: 13px;
+    padding: 13px 15px;
+    margin: 13px 0;
+  }
+
+  .challenge-box .challenge-title {
+    font-family: 'Righteous', cursive;
+    color: var(--gold2);
+    font-size: 0.88rem;
+    margin-bottom: 7px;
+  }
+
+  .challenge-box p { font-size: 0.84rem; color: #fde68a; margin-bottom: 5px; font-weight: 600; }
+
+  /* ── QUIZ ── */
+  .quiz-block {
+    background: rgba(255,255,255,0.03);
+    border-radius: 15px;
+    padding: 18px;
+    margin: 18px 0;
+    border: 2px solid rgba(5,150,105,0.2);
+  }
+
+  .quiz-block h3 { font-family: 'Righteous', cursive; font-size: 1rem; color: #fff; margin-bottom: 13px; }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 7px; }
+
+  .quiz-opt {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.09);
+    border-radius: 9px;
+    padding: 11px 15px;
+    color: #ddd;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.87rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .quiz-opt:hover:not(:disabled) { background: rgba(5,150,105,0.15); border-color: var(--biz); color: #fff; }
+  .quiz-opt.correct { background: rgba(5,150,105,0.2); border-color: var(--biz); color: #86efac; }
+  .quiz-opt.wrong { background: rgba(220,38,38,0.12); border-color: var(--red); color: #fca5a5; }
+
+  .quiz-feedback {
+    display: none;
+    margin-top: 11px;
+    padding: 11px 13px;
+    border-radius: 9px;
+    font-size: 0.87rem;
+    font-weight: 700;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(5,150,105,0.13); color: #86efac; }
+  .quiz-feedback.bad { background: rgba(220,38,38,0.1); color: #fca5a5; }
+
+  /* ── PROMPT PRACTICE ── */
+  .prompt-practice {
+    background: rgba(255,255,255,0.02);
+    border: 2px solid rgba(245,158,11,0.22);
+    border-radius: 15px;
+    padding: 18px;
+    margin: 18px 0;
+  }
+
+  .prompt-practice h3 { font-family: 'Righteous', cursive; font-size: 1rem; color: var(--gold2); margin-bottom: 7px; }
+  .prompt-practice p { font-size: 0.86rem; color: #bbb; margin-bottom: 9px; }
+
+  .prompt-input-wrap { display: flex; gap: 7px; margin-top: 9px; }
+
+  .prompt-textarea {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 11px;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.87rem;
+    font-weight: 600;
+    padding: 9px 13px;
+    resize: none;
+    height: 88px;
+    transition: border-color 0.2s;
+  }
+
+  .prompt-textarea:focus { outline: none; border-color: var(--biz); }
+
+  .send-btn {
+    background: linear-gradient(135deg, var(--biz), var(--gold2));
+    border: none;
+    border-radius: 11px;
+    color: #052e16;
+    font-size: 1.2rem;
+    width: 46px; height: 46px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: transform 0.2s;
+    align-self: flex-end;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .send-btn:hover { transform: scale(1.08); }
+
+  .ai-response-wrap { margin-top: 11px; display: none; }
+  .ai-response-wrap.show { display: block; }
+
+  .ai-response {
+    background: rgba(0,0,0,0.35);
+    border-radius: 11px;
+    padding: 13px;
+    font-size: 0.85rem;
+    color: #ddd;
     line-height: 1.6;
     font-weight: 600;
+    border-left: 3px solid var(--biz);
   }
 
-  .track-badge {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 6px 16px;
-    border-radius: 99px;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
+  .prompt-score { margin-top: 7px; font-size: 0.81rem; font-weight: 800; color: var(--gold2); text-align: right; }
 
-  .badge-live {
-    background: rgba(39,174,96,0.15);
-    color: #2ecc71;
-    border: 1px solid rgba(39,174,96,0.3);
-  }
-
-  .badge-soon {
-    background: rgba(255,255,255,0.07);
-    color: var(--muted);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .coming-soon { opacity: 0.5; cursor: default; pointer-events: none; }
-
-  footer {
-    margin-top: auto;
-    padding: 24px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.82rem;
-    font-weight: 600;
-    border-top: 1px solid rgba(255,255,255,0.05);
+  /* ── BUTTONS ── */
+  .complete-btn {
+    display: block;
     width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--biz), var(--gold2));
+    color: #052e16;
+    border: none;
+    border-radius: 13px;
+    font-family: 'Righteous', cursive;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(5,150,105,0.35);
   }
 
-  footer span { color: var(--gold); }
+  .complete-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(5,150,105,0.5); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 22px; right: 22px;
+    background: linear-gradient(135deg, #0d1a0b, #052e16);
+    border: 2px solid var(--biz);
+    border-radius: 15px;
+    padding: 13px 18px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    z-index: 999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    max-width: 300px;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(5,150,105,0.3); border-radius: 99px; }
+
+  @media (max-width: 600px) {
+    .modal-body { flex-direction: column; }
+    .lesson-nav { width: 100%; border-right: none; border-bottom: 2px solid rgba(255,255,255,0.05); max-height: 110px; display: flex; flex-wrap: nowrap; overflow-x: auto; padding: 7px; gap: 5px; }
+    .lesson-tab { white-space: nowrap; width: auto; }
+    .welcome-banner h2 { font-size: 1.6rem; }
+  }
+
+  .money-rain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+  .money-drop { position: absolute; top: -40px; font-size: 1.3rem; animation: fall linear forwards; }
+  @keyframes fall { to { top: 110vh; opacity: 0; } }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-ring">🎓</div>
-  <h1>KeypR Academy</h1>
-  <p>Knowledge is the real asset</p>
-  <div class="tagline">A learning journey through AI, Bitcoin, Common Law, and Business — built for the next generation.</div>
+  <div class="logo">
+    <div class="biz-icon">💼</div>
+    <div class="logo-text">
+      <h1>KeypR Academy</h1>
+      <p>Business Track</p>
+    </div>
+  </div>
+  <div class="xp-bar-wrap">
+    <div class="xp-label">
+      <span>💰 Profit XP</span>
+      <span id="xpCount">0 / 1800</span>
+    </div>
+    <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+  </div>
 </header>
 
-<main>
-  <div class="section-label">Choose Your Track</div>
-
-  <div class="track-grid">
-
-    <a href="https://keyprbtc.github.io/Ai-Course/" class="track-card" style="--accent:#7c3aed; animation-delay:0.05s;">
-      <span class="track-icon">🤖</span>
-      <div class="track-sub">Track 1</div>
-      <div class="track-name">AI Literacy</div>
-      <div class="track-desc">What is AI, how does it think, and how do you communicate with it? Learn prompt engineering from the ground up.</div>
-      <div class="track-badge badge-live">✅ Live — 18 Modules</div>
-    </a>
-
-    <a href="https://keyprbtc.github.io/Bitcoin-Course/" class="track-card" style="--accent:#f7931a; animation-delay:0.12s;">
-      <span class="track-icon">₿</span>
-      <div class="track-sub">Track 2</div>
-      <div class="track-name">Bitcoin</div>
-      <div class="track-desc">Why money was invented, what's broken about it, and how Bitcoin is changing the rules of the financial game.</div>
-      <div class="track-badge badge-live">✅ Live — 12 Modules</div>
-    </a>
-
-    <div class="track-card coming-soon" style="--accent:#e74c3c; animation-delay:0.19s;">
-      <span class="track-icon">⚖️</span>
-      <div class="track-sub">Track 3</div>
-      <div class="track-name">Common Law</div>
-      <div class="track-desc">Your rights, how courts work, the difference between law and rules, and how to think like a legal advocate.</div>
-      <div class="track-badge badge-soon">🔜 Coming Soon</div>
-    </div>
-
-    <div class="track-card coming-soon" style="--accent:#27ae60; animation-delay:0.26s;">
-      <span class="track-icon">💼</span>
-      <div class="track-sub">Track 4</div>
-      <div class="track-name">Business</div>
-      <div class="track-desc">Entrepreneurship, value creation, money management, and how to build something that matters — starting at any age.</div>
-      <div class="track-badge badge-soon">🔜 Coming Soon</div>
-    </div>
-
+<div id="dashboard">
+  <div class="welcome-banner">
+    <h2>💼 Business Academy</h2>
+    <p>Learn how money works, how businesses are built, and how to think like an entrepreneur — starting right now! 🚀</p>
   </div>
-</main>
 
-<footer>
-  <span>KeypR Academy</span> · Knowledge is the real asset · keyprbtc.github.io
-</footer>
+  <div class="section-divider"><span>🌱 Level 1 — Money Fundamentals</span></div>
+  <div class="module-grid" id="gridL1"></div>
 
+  <div class="section-divider"><span>⚙️ Level 2 — Business Basics</span></div>
+  <div class="module-grid" id="gridL2"></div>
+
+  <div class="section-divider"><span>🚀 Level 3 — Entrepreneur Mindset</span></div>
+  <div class="module-grid" id="gridL3"></div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-header-icon" id="modalIcon"></span>
+      <h2 id="modalTitle"></h2>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="lesson-nav" id="lessonNav"></div>
+      <div class="lesson-content" id="lessonContent"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">🎉</div>
+  <div>
+    <div id="toastTitle" style="font-family:'Righteous',cursive;font-size:0.95rem;"></div>
+    <div id="toastMsg" style="font-size:0.78rem;color:#9ca3af;margin-top:2px;"></div>
+  </div>
+</div>
+
+<script>
+const modules = [
+
+// ═══════════════════════════
+// LEVEL 1 — MONEY FUNDAMENTALS
+// ═══════════════════════════
+
+{
+  id:0, emoji:'💰', level:1, color:'#059669',
+  title:'What Is Money For?',
+  desc:'Discover the real purpose of money — it\'s a tool, not a goal.',
+  xp:100,
+  lessons:[
+    {
+      title:'Money Is a Tool',
+      content:`
+        <h3>What Would You Do Without Money?</h3>
+        <p>Imagine you wanted to trade your drawing skills for a pizza. You'd have to find a pizza shop that specifically wanted a drawing right now. That's really hard! Money solves this problem by giving everyone a universal way to exchange value.</p>
+        <p>Money is simply a <strong>tool for exchanging value</strong>. It's not magic — it's just an agreed-upon way for people to trade what they have for what they need.</p>
+        <div class="info-box">💼 Key idea: Money itself isn't the goal. Money is a tool — just like a hammer helps you build things, money helps you get things done. The most successful entrepreneurs think of money as a score that shows how much value they've created for others.</div>
+        <div class="fun-fact">Jeff Bezos started Amazon in his garage selling books. He didn't start with millions — he started with an idea to solve a problem. The money came after he created real value for customers.</div>
+      `,
+      quiz:{
+        q:'What is money most accurately described as?',
+        options:[
+          {text:'The ultimate goal everyone should chase in life', correct:false},
+          {text:'A universally agreed tool for exchanging value', correct:true},
+          {text:'A government invention used to collect taxes', correct:false},
+          {text:'A score that only banks and governments keep track of', correct:false}
+        ],
+        feedback:{ok:'Exactly! Money is a tool — a shared system that makes exchanging value between people much easier.'}
+      }
+    },
+    {
+      title:'Three Jobs of Money',
+      content:`
+        <h3>Money Wears Three Hats</h3>
+        <p>Money isn't just for buying things. Economists say money does three important jobs — and understanding all three makes you smarter about how to use it.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">💰 The Three Jobs of Money</div>
+          <p><strong>1. Medium of Exchange:</strong> Makes buying and selling easy. Instead of trading apples for shoes, you use money everyone accepts.</p>
+          <p><strong>2. Store of Value:</strong> Lets you save now and spend later. You can work today and use the money next year.</p>
+          <p><strong>3. Unit of Account:</strong> Gives everything a price so we can compare values. Is a bike worth 10 pizzas or 50? Money makes this simple.</p>
+        </div>
+        <p>When you earn money doing chores, it's a medium of exchange. When you save it in a piggy bank, it's a store of value. When you compare prices at the store, you're using it as a unit of account.</p>
+        <div class="fun-fact">Apple Inc. has so much cash stored that if you stacked the dollar bills, they'd reach the moon and back multiple times. Even mega-companies use money as a store of value!</div>
+      `,
+      quiz:{
+        q:'Which job of money are you using when you save birthday cash to spend later?',
+        options:[
+          {text:'Medium of exchange — trading value between people', correct:false},
+          {text:'Unit of account — comparing the prices of things', correct:false},
+          {text:'Store of value — holding purchasing power for future use', correct:true},
+          {text:'Unit of exchange — setting standard prices in markets', correct:false}
+        ],
+        feedback:{ok:'Right! Saving money to spend later uses money as a store of value — preserving your purchasing power over time.'}
+      }
+    },
+    {
+      title:'Money vs Wealth',
+      content:`
+        <h3>Rich in Money vs Rich in Wealth — What\'s the Difference?</h3>
+        <p>Here's a question: if someone earns $10,000 a month but spends $11,000 — are they rich? No! They're actually going backwards. Money and wealth are not the same thing.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📚 Key Definitions</div>
+          <p><strong>Income:</strong> Money coming IN — from work, a business, or investments.</p>
+          <p><strong>Expenses:</strong> Money going OUT — rent, food, entertainment.</p>
+          <p><strong>Wealth:</strong> What you KEEP. Wealth = Assets − Liabilities (what you own minus what you owe).</p>
+        </div>
+        <div class="info-box">💡 Many lottery winners become poor again within a few years because they spend more than they keep. Wealth isn't about how much you earn — it's about how much you keep and grow.</div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Your Challenge</div>
+          <p>List 3 things you currently own that might have value (books, games, skills, time). These are mini-assets! Now list 3 things that cost you money regularly. Which list is longer?</p>
+        </div>
+      `,
+      quiz:{
+        q:'What is the best definition of personal wealth?',
+        options:[
+          {text:'The total amount of money you earn each month', correct:false},
+          {text:'The value of what you own minus what you owe', correct:true},
+          {text:'The number of expensive items you have bought', correct:false},
+          {text:'How much cash you are carrying right now', correct:false}
+        ],
+        feedback:{ok:'Correct! Wealth = Assets minus Liabilities. It\'s what you keep and own, not what you earn or spend.'}
+      },
+      practice:{
+        scenario:'You want to explain the difference between income and wealth to a friend who thinks making a lot of money automatically makes you wealthy. Ask AI to help you write a clear explanation using a real-world example!',
+        hint:'The best explanations use contrast. Ask AI for a specific example of someone with high income but low wealth — and someone with modest income but high wealth.',
+        placeholder:'Try: "Explain the difference between income and wealth using two contrasting real-world examples. Make it clear enough for a 10-year-old to understand."'
+      }
+    }
+  ]
+},
+
+{
+  id:1, emoji:'🛒', level:1, color:'#0891b2',
+  title:'Needs vs Wants',
+  desc:'Master the most powerful money decision you\'ll ever make.',
+  xp:100,
+  lessons:[
+    {
+      title:'The Big Divide',
+      content:`
+        <h3>Would You Rather Have Food or a Video Game?</h3>
+        <p>That might sound like an easy question — but when you have money in your pocket, it often doesn't feel easy. Learning to tell the difference between what you <em>need</em> and what you <em>want</em> is one of the most valuable money skills you can develop.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📚 Needs vs Wants</div>
+          <p><strong>Need:</strong> Something essential for survival and basic wellbeing — food, water, shelter, clothing, healthcare.</p>
+          <p><strong>Want:</strong> Something that improves comfort or enjoyment but isn't essential to survive — games, streaming services, brand-name shoes.</p>
+        </div>
+        <p>The tricky part: needs and wants can blur. A phone might be a want for fun — but a need for a parent who runs a business. Context matters!</p>
+        <div class="info-box">💼 Every business in the world succeeds by selling either needs or wants. McDonald's sells a want (fast food) marketed as a need (quick, cheap meal). Understanding which category your business idea falls into helps you predict demand.</div>
+      `,
+      quiz:{
+        q:'Why can the line between needs and wants sometimes be blurry?',
+        options:[
+          {text:'Because wants and needs always cost the same amount of money', correct:false},
+          {text:'Because context and circumstances can change what is essential', correct:true},
+          {text:'Because governments decide what counts as a need', correct:false},
+          {text:'Because wants become needs if you desire them strongly enough', correct:false}
+        ],
+        feedback:{ok:'Exactly! Context matters — the same item can be a need for one person and a want for another depending on their situation.'}
+      }
+    },
+    {
+      title:'Delayed Gratification',
+      content:`
+        <h3>The Marshmallow Test</h3>
+        <p>In the 1960s, a Stanford researcher named Walter Mischel did a famous experiment with kids. He put a marshmallow in front of each child and said: "You can eat this now, OR wait 15 minutes and get two marshmallows." Most kids ate it immediately.</p>
+        <p>The kids who waited? They grew up to be more successful on average — better grades, healthier lifestyles, more financial success. The ability to <strong>delay gratification</strong> — to wait for a bigger reward — is a superpower.</p>
+        <div class="fun-fact">Warren Buffett, one of the world's most successful investors, is famous for living simply despite being worth over $100 billion. He still lives in the same house he bought in 1958 for $31,500. He delays gratification better than almost anyone.</div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 30-Day Challenge</div>
+          <p>Next time you want to buy something that costs more than $10, wait 3 days before buying it. If you still want it after 3 days, it might be worth it. If you've forgotten about it — you just saved money!</p>
+        </div>
+      `,
+      quiz:{
+        q:'What does "delayed gratification" mean?',
+        options:[
+          {text:'Purchasing items at a discounted sale price rather than full cost', correct:false},
+          {text:'Refusing to spend any money on enjoyable things ever again', correct:false},
+          {text:'Choosing a bigger reward later over a smaller reward right now', correct:true},
+          {text:'Requesting that your parents hold back your allowance temporarily', correct:false}
+        ],
+        feedback:{ok:'Right! Delayed gratification means resisting a smaller immediate reward in order to gain a larger reward later — a key skill for financial success.'}
+      }
+    },
+    {
+      title:'Opportunity Cost',
+      content:`
+        <h3>Every Choice Has a Price</h3>
+        <p>Here's something most people never learn: every decision you make has a hidden cost. When you choose to spend $50 on a video game, you're not just spending $50 — you're also choosing NOT to save it, invest it, or spend it on something else.</p>
+        <p>This is called <strong>opportunity cost</strong> — the value of the next best thing you gave up when you made a choice.</p>
+        <div class="info-box">💼 Smart businesses think about opportunity cost constantly. A company deciding whether to build a new factory must ask: "What else could we do with this money?" Could they hire 10 employees? Fund research? The best choice isn't always the most obvious one.</div>
+        <div class="fun-fact">When Apple decided to make the iPhone in 2007, they gave up resources that could have made 3 more Mac computers. That opportunity cost paid off — the iPhone became the most profitable product in history.</div>
+      `,
+      quiz:{
+        q:'What is "opportunity cost"?',
+        options:[
+          {text:'A penalty fee charged when you miss an important business meeting', correct:false},
+          {text:'The total price of everything in your shopping cart', correct:false},
+          {text:'The value of the next best option you give up with each decision', correct:true},
+          {text:'A special promotional discount offered during a limited sale window', correct:false}
+        ],
+        feedback:{ok:'Correct! Every choice means giving up something else. Opportunity cost is the value of that next-best alternative you didn\'t choose.'}
+      },
+      practice:{
+        scenario:'Your friend wants to spend their $100 birthday money immediately on a gaming headset. Ask AI to help you explain opportunity cost to them — including what else they could do with that money and how those options compare.',
+        hint:'Good explanations make the trade-off concrete and personal. Ask AI to consider at least 3 alternative uses for the $100 and explain what each option provides.',
+        placeholder:'Try: "Explain opportunity cost to a 12-year-old using the example of spending $100 on a gaming headset. Show at least 3 alternative uses for that money and what each one provides in return."'
+      }
+    }
+  ]
+},
+
+{
+  id:2, emoji:'💪', level:1, color:'#7c3aed',
+  title:'Earning Money',
+  desc:'Every dollar you earn starts with creating value for someone else.',
+  xp:100,
+  lessons:[
+    {
+      title:'Value First, Money Second',
+      content:`
+        <h3>Nobody Pays You Just to Exist</h3>
+        <p>Here's the fundamental truth about earning money: people pay for <strong>value</strong>. They pay because you solved a problem, made something they wanted, or did something they couldn't or didn't want to do themselves.</p>
+        <p>This is true whether you're mowing a neighbor's lawn, running a billion-dollar company, or playing professional sports. The question is always: <em>"What value am I creating for someone else?"</em></p>
+        <div class="vocab-box">
+          <div class="vocab-title">💡 Ways to Create Value</div>
+          <p><strong>Skills:</strong> Things you're good at that others need — coding, writing, drawing, fixing things.</p>
+          <p><strong>Time:</strong> Doing tasks others don't want to spend their time on.</p>
+          <p><strong>Ideas:</strong> Solving problems in new and better ways.</p>
+          <p><strong>Products:</strong> Making something people want to buy.</p>
+        </div>
+        <div class="fun-fact">At age 12, Moziah Bridges started Mo's Bows — hand-made bow ties — from his grandmother's fabric scraps. By 16 he had a deal with the NBA. He earned money by creating something stylish that people genuinely wanted.</div>
+      `,
+      quiz:{
+        q:'Why do people pay others money?',
+        options:[
+          {text:'Because laws require everyone to share their money equally', correct:false},
+          {text:'Because they receive value — a problem solved or a want fulfilled', correct:true},
+          {text:'Because working hard automatically earns you more money', correct:false},
+          {text:'Because companies are required to pay employees by the government', correct:false}
+        ],
+        feedback:{ok:'Exactly! People pay for value. Every dollar you earn represents value you created for someone else.'}
+      }
+    },
+    {
+      title:'Active vs Passive Income',
+      content:`
+        <h3>Getting Paid While You Sleep</h3>
+        <p>There are two main types of income, and understanding both is a game-changer for your financial future.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">💰 Two Types of Income</div>
+          <p><strong>Active Income:</strong> You trade time for money. When you stop working, money stops coming. Examples: a job, mowing lawns, babysitting.</p>
+          <p><strong>Passive Income:</strong> Money that keeps coming even when you're not working. Examples: a YouTube channel that earns ad revenue, a book that earns royalties, a rental property.</p>
+        </div>
+        <p>Most people only ever earn active income. The wealthy build systems that generate passive income — so money works for them, not just the other way around.</p>
+        <div class="fun-fact">Minecraft creator Markus Persson sold Minecraft to Microsoft for $2.5 billion in 2014. But before the sale, he earned passive income every time someone bought the game — even while he was sleeping, on vacation, or doing something else entirely.</div>
+      `,
+      quiz:{
+        q:'What is the main difference between active and passive income?',
+        options:[
+          {text:'Active income follows the law but passive income does not', correct:false},
+          {text:'Active income stops when you stop working; passive keeps coming in', correct:true},
+          {text:'Active income is from businesses while passive always comes from jobs', correct:false},
+          {text:'Passive income is always guaranteed to pay more than active income', correct:false}
+        ],
+        feedback:{ok:'Correct! Active income stops when you stop working. Passive income continues flowing even when you\'re not actively doing the work.'}
+      }
+    },
+    {
+      title:'Skills Are Your Superpower',
+      content:`
+        <h3>The More Valuable Your Skills, the More You Can Earn</h3>
+        <p>Not all skills pay the same. A skill that is <strong>rare AND valuable</strong> to others earns the most money. A skill that is common or easy to replace earns less.</p>
+        <div class="info-box">💼 Think about it: thousands of people can flip burgers, but very few people can design a rocket engine. The rarer and more needed a skill is, the more it pays. Your job is to build skills that are both difficult to learn and highly useful to others.</div>
+        <p>The exciting news for your generation: skills like coding, AI prompt engineering, video editing, and digital marketing are in massive demand and can be learned by anyone with internet access and determination.</p>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Skill Audit Challenge</div>
+          <p>Write down 5 things you're good at or enjoy doing. For each one, ask: "Would someone pay me for this?" and "How many people can do this?" The answers reveal your highest-value potential skills.</p>
+        </div>
+      `,
+      quiz:{
+        q:'Which type of skill tends to earn the most money?',
+        options:[
+          {text:'Skills that are easy to learn and widely available', correct:false},
+          {text:'Skills that require expensive university degrees to develop', correct:false},
+          {text:'Skills that are both rare to have and highly valued by others', correct:true},
+          {text:'Skills that have been around the longest in the workforce', correct:false}
+        ],
+        feedback:{ok:'Right! The most valuable skills combine rarity and usefulness. The harder a skill is to develop and the more people need it, the more you can charge.'}
+      },
+      practice:{
+        scenario:'You want to figure out which of your skills and interests could actually earn money. Ask AI to help you identify which of your skills have the most earning potential and suggest specific ways to monetize them!',
+        hint:'Be specific about your skills and interests. Ask for concrete, age-appropriate money-making ideas — not just general advice.',
+        placeholder:'Try: "I\'m 11 years old and I\'m good at [list your skills/interests]. Which of these have the most potential to earn money? Give me 3 specific, realistic ways I could start earning with these skills."'
+      }
+    }
+  ]
+},
+
+{
+  id:3, emoji:'🏦', level:1, color:'#0f766e',
+  title:'Saving & Budgeting',
+  desc:'The habits that separate people who build wealth from those who don\'t.',
+  xp:100,
+  lessons:[
+    {
+      title:'Pay Yourself First',
+      content:`
+        <h3>The Golden Rule of Saving</h3>
+        <p>Most people earn money, pay their bills, buy what they want, and then try to save whatever is left over. The problem? There's usually nothing left. The wealthy do it the opposite way: they save first, then live on what remains.</p>
+        <p>This is called <strong>"pay yourself first."</strong> The moment money arrives, a portion goes straight to savings — before any spending happens. The rest of life gets funded from what's left.</p>
+        <div class="fun-fact">Many financial experts recommend the 50/30/20 rule: 50% of income on needs, 30% on wants, 20% on savings. Some go further — Warren Buffett famously saved most of his childhood income instead of spending it.</div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Try It This Week</div>
+          <p>Next time you receive any money — allowance, gift, or earned — immediately set aside 20% into a separate savings jar or account BEFORE you decide what to spend. Notice how it feels different from saving "what's left."</p>
+        </div>
+      `,
+      quiz:{
+        q:'What does "pay yourself first" mean?',
+        options:[
+          {text:'Buying yourself a treat before paying any bills', correct:false},
+          {text:'Setting aside savings before spending any of your income', correct:true},
+          {text:'Paying off your own debts before lending money to friends', correct:false},
+          {text:'Earning money from your own business instead of a job', correct:false}
+        ],
+        feedback:{ok:'Exactly! Pay yourself first means saving a portion immediately when money arrives — before any spending happens. This guarantees savings grow.'}
+      }
+    },
+    {
+      title:'Building a Budget',
+      content:`
+        <h3>A Budget Is Just a Plan for Your Money</h3>
+        <p>A budget isn't about restriction — it's about <em>intention</em>. Without a budget, money tends to disappear mysteriously. With a budget, you tell every dollar where to go instead of wondering where it went.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📊 A Simple Budget Framework</div>
+          <p><strong>Step 1 — Income:</strong> How much money comes in each month or week?</p>
+          <p><strong>Step 2 — Fixed Costs:</strong> What must you pay regardless? (regular expenses)</p>
+          <p><strong>Step 3 — Savings Goal:</strong> How much goes to savings first?</p>
+          <p><strong>Step 4 — Spending Money:</strong> What's left for everything else?</p>
+          <p><strong>Step 5 — Track It:</strong> Check in weekly — did reality match the plan?</p>
+        </div>
+        <div class="info-box">💼 Every successful business runs on a budget. Even Apple, Tesla, and Amazon — with billions in revenue — have detailed budgets for every department. A business without a budget is like a ship without navigation.</div>
+      `,
+      quiz:{
+        q:'What is the main purpose of a personal budget?',
+        options:[
+          {text:'To reduce the amount of money you are allowed to spend', correct:false},
+          {text:'To make a deliberate plan so every dollar has a purpose', correct:true},
+          {text:'To show banks that you are responsible with money', correct:false},
+          {text:'To track how much money other people in your family spend', correct:false}
+        ],
+        feedback:{ok:'Right! A budget is a plan for your money — it gives every dollar a purpose and helps you stay in control of your finances.'}
+      }
+    },
+    {
+      title:'The Power of Compound Growth',
+      content:`
+        <h3>The Eighth Wonder of the World</h3>
+        <p>Albert Einstein reportedly called compound interest "the eighth wonder of the world." Whether he said it or not, the concept is genuinely mind-blowing — especially when you start young.</p>
+        <p><strong>Compound growth</strong> means your money earns returns, and then those returns also earn returns. It's growth on top of growth, and over time it becomes enormous.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🧮 Compound Growth Example</div>
+          <p>If you invest $1,000 at age 10 and it grows at 10% per year:</p>
+          <p><strong>Age 20:</strong> ~$2,594</p>
+          <p><strong>Age 30:</strong> ~$6,727</p>
+          <p><strong>Age 40:</strong> ~$17,449</p>
+          <p><strong>Age 60:</strong> ~$117,390</p>
+          <p>You put in $1,000 and did nothing else — time did the rest!</p>
+        </div>
+        <div class="fun-fact">Warren Buffett made 99% of his wealth after age 50 — not because he started investing late, but because compound growth explodes in the later years. Starting early is the most powerful financial advantage you have.</div>
+      `,
+      quiz:{
+        q:'Why is starting to save and invest at a young age such a big advantage?',
+        options:[
+          {text:'Younger investors always receive special lower tax rates on gains', correct:false},
+          {text:'Banks specifically offer higher savings rates to younger customers', correct:false},
+          {text:'More time lets compound growth multiply savings far more dramatically', correct:true},
+          {text:'Younger investors are naturally better at selecting winning stocks', correct:false}
+        ],
+        feedback:{ok:'Exactly! Time is the key ingredient in compound growth. The earlier you start, the more time your money has to grow on top of itself.'}
+      },
+      practice:{
+        scenario:'Your parents think investing is only for adults. Ask AI to help you explain why starting to save and invest at your age is actually a massive advantage — use the power of compound growth in your argument!',
+        hint:'Numbers make arguments more convincing. Ask AI to include specific examples of how much a small amount saved now could grow to by adulthood.',
+        placeholder:'Try: "Help me explain to my parents why starting to save and invest at age 10-12 is a huge financial advantage. Include a specific example showing how $500 saved now could grow over time using compound growth."'
+      }
+    }
+  ]
+},
+
+{
+  id:4, emoji:'🧠', level:1, color:'#b45309',
+  title:'Spending Wisely',
+  desc:'How smart spenders get more value from every dollar.',
+  xp:100,
+  lessons:[
+    {
+      title:'Value vs Price',
+      content:`
+        <h3>Cheap Isn\'t Always a Good Deal</h3>
+        <p>There's a big difference between something being <strong>cheap</strong> and something being <strong>good value</strong>. A $5 pair of shoes that falls apart in 2 weeks costs more over time than a $30 pair that lasts 3 years.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📚 Price vs Value</div>
+          <p><strong>Price:</strong> What you pay in money.</p>
+          <p><strong>Value:</strong> What you actually get — quality, durability, usefulness, enjoyment.</p>
+          <p><strong>Good deal:</strong> When value received is greater than price paid.</p>
+          <p><strong>Bad deal:</strong> When price paid is greater than value received.</p>
+        </div>
+        <div class="fun-fact">Costco sells products in huge bulk quantities. The "price" looks higher than buying one item at a regular store — but the cost per use is much lower. Costco's model is built entirely on delivering better value-per-dollar.</div>
+      `,
+      quiz:{
+        q:'What makes something a genuinely "good deal"?',
+        options:[
+          {text:'When the price tag shows a large discount from the original price', correct:false},
+          {text:'When the value you receive is greater than the price you paid', correct:true},
+          {text:'When the item is the cheapest available option on the market', correct:false},
+          {text:'When a trusted friend or advertisement recommends the product', correct:false}
+        ],
+        feedback:{ok:'Correct! A good deal isn\'t about the lowest price — it\'s about getting more value than what you paid. Quality, durability, and usefulness all count.'}
+      }
+    },
+    {
+      title:'Marketing Tricks',
+      content:`
+        <h3>Companies Are Experts at Getting Your Money</h3>
+        <p>Every business wants your money. The smartest ones have spent millions of dollars figuring out exactly how to make you want to spend. Being aware of their tricks is your defense.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🎯 Common Marketing Tricks</div>
+          <p><strong>Fake urgency:</strong> "Only 3 left!" or "Sale ends tonight!" — creates fear of missing out.</p>
+          <p><strong>Anchoring:</strong> Showing a high "original price" makes the sale price seem like a bargain.</p>
+          <p><strong>Social proof:</strong> "10 million people bought this!" — makes you feel you're missing out.</p>
+          <p><strong>Loss aversion:</strong> "Don't miss this deal!" — we fear losing more than we enjoy gaining.</p>
+          <p><strong>Charm pricing:</strong> $9.99 feels much cheaper than $10 even though it's barely different.</p>
+        </div>
+        <div class="info-box">💼 Amazon's "Lightning Deals" countdown timer is pure psychology. It triggers urgency even when the deal isn't that special. Knowing this trick means you pause and ask: "Would I want this if there was no timer?"</div>
+      `,
+      quiz:{
+        q:'What is "anchoring" as a marketing technique?',
+        options:[
+          {text:'Positioning products at eye level so shoppers will notice them first', correct:false},
+          {text:'Displaying a high reference price so the sale price feels like a bargain', correct:true},
+          {text:'Maintaining stable consistent prices over time to build customer trust', correct:false},
+          {text:'Offering a free item as an incentive to attract customers into the store', correct:false}
+        ],
+        feedback:{ok:'Right! Anchoring uses a high reference price to make discounts look more attractive than they really are. Always judge a price on its own merits.'}
+      }
+    },
+    {
+      title:'The Real Cost of Things',
+      content:`
+        <h3>What Does That Really Cost?</h3>
+        <p>Here's a powerful way to think about spending: convert prices into <strong>hours of work</strong>. If you earn $10 per hour and something costs $50, it actually costs you 5 hours of your life. Is it worth 5 hours?</p>
+        <p>This is called the "real cost" mindset — measuring purchases in time, not just money.</p>
+        <div class="info-box">💡 Going even further: subscriptions are sneaky. A $12/month streaming service sounds cheap, but that's $144 per year. If you have 5 subscriptions, that's $720 per year — and many people forget they even have them! Review your subscriptions regularly.</div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Real Cost Challenge</div>
+          <p>Pick 3 things you spend money on regularly. For each one, calculate the yearly cost and convert it to hours of work (divide by your real or imagined hourly rate). You might be surprised!</p>
+        </div>
+      `,
+      quiz:{
+        q:'Why is it useful to convert prices into hours of work?',
+        options:[
+          {text:'It helps you negotiate for higher pay at your next job', correct:false},
+          {text:'It makes you realize that all spending is bad and should be avoided', correct:false},
+          {text:'It reveals the true personal cost of purchases in terms of your time', correct:true},
+          {text:'It is required by most financial advisors when making a budget', correct:false}
+        ],
+        feedback:{ok:'Exactly! Thinking in hours of work reveals the true cost of purchases beyond the dollar amount — making it easier to decide what\'s really worth it.'}
+      },
+      practice:{
+        scenario:'You want to build better spending habits. Ask AI to create a personal "Spending Audit" system — a simple checklist of questions to ask yourself before any purchase over $20.',
+        hint:'The best systems are quick to use and focus on the right questions. Ask AI for 6-8 specific questions that catch impulse buying, marketing tricks, and poor value.',
+        placeholder:'Try: "Create a simple \'Smart Spending Checklist\' — 6-8 questions to ask yourself before buying anything over $20. Make each question target a specific spending trap like impulse buying, marketing tricks, or poor value."'
+      }
+    }
+  ]
+},
+
+{
+  id:5, emoji:'🤝', level:1, color:'#be185d',
+  title:'Giving & Generosity',
+  desc:'Why the most successful people in the world are also big givers.',
+  xp:100,
+  lessons:[
+    {
+      title:'Why Giving Matters',
+      content:`
+        <h3>Giving Is Part of a Healthy Money Life</h3>
+        <p>It might seem strange to include giving in a business course. But the most financially successful people in history — from Andrew Carnegie to Bill Gates to Warren Buffett — have also been among the world's biggest givers.</p>
+        <p>This isn't a coincidence. Generosity builds community, trust, and reputation. In business, your reputation is one of your most valuable assets.</p>
+        <div class="fun-fact">Warren Buffett has pledged to give away 99% of his wealth to charity. Bill Gates and Buffett created "The Giving Pledge" — getting billionaires to commit to giving away at least half their fortune. Over 230 of the world's wealthiest people have signed it.</div>
+        <div class="info-box">💼 Businesses that give to their communities often build stronger customer loyalty. Customers choose companies whose values match their own. Generosity isn't just good ethics — it's often good business too.</div>
+      `,
+      quiz:{
+        q:'How does generosity connect to long-term business success?',
+        options:[
+          {text:'Giving to charity reduces the taxes a business has to pay', correct:false},
+          {text:'Generous businesses qualify for special government contracts', correct:false},
+          {text:'Generosity builds trust, reputation, and community loyalty over time', correct:true},
+          {text:'Giving makes employees work harder because they feel guilty', correct:false}
+        ],
+        feedback:{ok:'Right! Generosity builds trust and reputation — two of the most valuable assets in business. People support companies and people whose values they admire.'}
+      }
+    },
+    {
+      title:'The Giving Framework',
+      content:`
+        <h3>How to Build Giving Into Your Financial Life</h3>
+        <p>Many financial advisors recommend a simple framework: divide every dollar you earn into three buckets — Spend, Save, and Give. Even small amounts of giving, done consistently, build a generous habit that grows with your income.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🪣 Three-Bucket System</div>
+          <p><strong>Spend (70%):</strong> Everyday needs and wants.</p>
+          <p><strong>Save (20%):</strong> Future goals, investing, emergency fund.</p>
+          <p><strong>Give (10%):</strong> Charity, helping others, community causes you care about.</p>
+        </div>
+        <p>The percentages can change as your income grows. The habit matters more than the amount. Giving 10% when you earn $10 trains the same muscle as giving 10% when you earn $1,000,000.</p>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Give With Intention</div>
+          <p>Identify one cause you genuinely care about. Next time you receive money, give 10% to that cause. Notice how it feels to give with purpose rather than just spending on impulse.</p>
+        </div>
+      `,
+      quiz:{
+        q:'In the three-bucket money system, what percentage is typically recommended for giving?',
+        options:[
+          {text:'One percent — giving should stay small until you are wealthy', correct:false},
+          {text:'Fifty percent — giving should always be the top priority', correct:false},
+          {text:'Ten percent — a consistent giving habit that grows with income', correct:true},
+          {text:'Twenty-five percent — enough to make a meaningful difference', correct:false}
+        ],
+        feedback:{ok:'Correct! The traditional recommendation is 10% for giving. The amount matters less than the habit — consistent giving at any level builds lasting generosity.'}
+      }
+    },
+    {
+      title:'Giving as a Skill',
+      content:`
+        <h3>Giving Isn\'t Just Money</h3>
+        <p>Giving money is powerful — but it's not the only way to be generous. Time, skills, attention, and encouragement can be just as valuable as cash — sometimes more so.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🎁 Forms of Generous Giving</div>
+          <p><strong>Time:</strong> Volunteering, helping a neighbor, mentoring a younger student.</p>
+          <p><strong>Skills:</strong> Teaching what you know to someone who doesn't know it yet.</p>
+          <p><strong>Money:</strong> Donating to causes, contributing to community needs.</p>
+          <p><strong>Attention:</strong> Truly listening and being present for someone who needs it.</p>
+          <p><strong>Recognition:</strong> Celebrating others' achievements and contributions.</p>
+        </div>
+        <div class="fun-fact">Patagonia (the outdoor clothing company) donated its entire company — valued at about $3 billion — to a nonprofit fighting climate change in 2022. The founder said: "Earth is now our only shareholder." Their brand loyalty and sales actually increased after the announcement.</div>
+      `,
+      quiz:{
+        q:'Which statement best describes giving as part of a successful life?',
+        options:[
+          {text:'Giving is only meaningful when it involves large amounts of money', correct:false},
+          {text:'Only individuals should give — businesses should focus on profits', correct:false},
+          {text:'Giving includes time, skills, and attention — not only financial donations', correct:true},
+          {text:'Giving should be kept private and never connected to a business', correct:false}
+        ],
+        feedback:{ok:'Exactly! Giving encompasses far more than money. Time, skills, encouragement, and attention are all powerful forms of generosity.'}
+      },
+      practice:{
+        scenario:'Design a simple "Giving Plan" for yourself. Ask AI to help you identify 3 causes you care about, suggest age-appropriate ways to contribute to each, and create a realistic giving commitment.',
+        hint:'The best giving plans are personal and specific. Ask AI to match giving opportunities to your actual interests and available resources — not just generic charity suggestions.',
+        placeholder:'Try: "Help me create a personal giving plan. I care about [list 2-3 things you care about]. Suggest specific, age-appropriate ways I can contribute to each cause using time, skills, or small amounts of money."'
+      }
+    }
+  ]
+},
+
+// ═══════════════════════════
+// LEVEL 2 — BUSINESS BASICS
+// ═══════════════════════════
+
+{
+  id:6, emoji:'🏢', level:2, color:'#1d4ed8',
+  title:'What Is a Business?',
+  desc:'Every business in the world follows the same basic blueprint.',
+  xp:100,
+  lessons:[
+    {
+      title:'The Business Blueprint',
+      content:`
+        <h3>Every Business Does Three Things</h3>
+        <p>From a lemonade stand to Amazon, every business on Earth does the same three things: it <strong>creates something valuable</strong>, <strong>delivers it to customers</strong>, and <strong>earns money in exchange</strong>. That's it. Everything else is just details.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🏗️ The Business Blueprint</div>
+          <p><strong>Create Value:</strong> Make a product or provide a service that solves a problem or fulfills a desire.</p>
+          <p><strong>Deliver:</strong> Get that product or service to the people who want it.</p>
+          <p><strong>Exchange:</strong> Receive payment in return.</p>
+        </div>
+        <div class="fun-fact">McDonald's sells over 6.5 million pounds of french fries every single day. Their business creates value (fast, tasty, cheap food), delivers it (drive-throughs, restaurants everywhere), and exchanges it (you pay, you eat). Simple blueprint — massive scale.</div>
+      `,
+      quiz:{
+        q:'What are the three things every business does, regardless of its size?',
+        options:[
+          {text:'Hire employees, rent a building, and advertise on social media', correct:false},
+          {text:'Create value, deliver it to customers, and receive payment in return', correct:true},
+          {text:'Register with the government, open a bank account, and find investors', correct:false},
+          {text:'Build a website, create a logo, and develop a business plan', correct:false}
+        ],
+        feedback:{ok:'Right! Every business — from a lemonade stand to Amazon — creates value, delivers it, and exchanges it for money. Everything else supports these three core activities.'}
+      }
+    },
+    {
+      title:'Types of Businesses',
+      content:`
+        <h3>Not All Businesses Look the Same</h3>
+        <p>Businesses come in all shapes, sizes, and structures. Understanding the different types helps you figure out which model fits your idea.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🗂️ Main Types of Businesses</div>
+          <p><strong>Product business:</strong> Makes or sells physical things. Examples: Nike, LEGO, your school's bake sale.</p>
+          <p><strong>Service business:</strong> Does something for people. Examples: a barbershop, Uber, lawn mowing.</p>
+          <p><strong>Subscription business:</strong> Charges regularly for ongoing access. Examples: Netflix, Spotify, a newsletter.</p>
+          <p><strong>Marketplace business:</strong> Connects buyers and sellers. Examples: eBay, Airbnb, Etsy.</p>
+          <p><strong>Digital/Software business:</strong> Sells software, apps, or digital content. Examples: Roblox, TikTok, Microsoft.</p>
+        </div>
+        <div class="info-box">💼 Many successful businesses combine types. Apple makes products (iPhones), offers services (repairs), runs subscriptions (Apple Music), and hosts a marketplace (App Store) — all at once!</div>
+      `,
+      quiz:{
+        q:'What type of business model does Netflix use?',
+        options:[
+          {text:'Product business — selling physical discs and packaged media', correct:false},
+          {text:'Marketplace — connecting film creators directly with their audience', correct:false},
+          {text:'Subscription model — charging a recurring fee for ongoing access', correct:true},
+          {text:'Service business — offering personalised in-person film advisory', correct:false}
+        ],
+        feedback:{ok:'Correct! Netflix is a subscription business — you pay regularly (monthly) for continued access to their content library.'}
+      }
+    },
+    {
+      title:'What Makes a Business Succeed?',
+      content:`
+        <h3>The 5 Ingredients of a Successful Business</h3>
+        <p>Thousands of businesses start every year. Many fail. The ones that succeed tend to share five key ingredients.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">✅ 5 Success Ingredients</div>
+          <p><strong>1. Real problem solved:</strong> People want what you're offering badly enough to pay for it.</p>
+          <p><strong>2. Customers identified:</strong> You know exactly who your buyer is and where to find them.</p>
+          <p><strong>3. Profitable pricing:</strong> You charge enough to cover costs AND make a profit.</p>
+          <p><strong>4. Reliable delivery:</strong> You can consistently get the product or service to customers.</p>
+          <p><strong>5. Adaptability:</strong> You learn from customers and improve over time.</p>
+        </div>
+        <div class="fun-fact">Instagram was originally a check-in app called Burbn. It wasn't working. The founders listened to users, noticed everyone loved the photo-sharing feature, stripped out everything else, and relaunched as Instagram. Adaptability saved the company — and it eventually sold for $1 billion.</div>
+      `,
+      quiz:{
+        q:'According to the 5 success ingredients, what is the most important foundation of any business?',
+        options:[
+          {text:'Having a professional logo and a polished website from day one', correct:false},
+          {text:'Raising money from investors before you start selling anything', correct:false},
+          {text:'Solving a real problem that people want to pay for', correct:true},
+          {text:'Having more employees than any competing business nearby', correct:false}
+        ],
+        feedback:{ok:'Exactly! A real problem solved is the foundation. No amount of great marketing, design, or funding can save a business that doesn\'t solve something people actually need.'}
+      },
+      practice:{
+        scenario:'You want to test whether a business idea is worth pursuing. Ask AI to help you run a quick "Business Idea Checkup" using the 5 success ingredients — apply it to a real or imagined idea!',
+        hint:'Give AI a specific business idea to analyze. Ask it to rate the idea against each of the 5 ingredients and identify the weakest point.',
+        placeholder:'Try: "Use the 5 business success ingredients to analyze this idea: [describe your idea]. Rate it on each ingredient from 1-5 and tell me which ingredient is the biggest weakness and how to strengthen it."'
+      }
+    }
+  ]
+},
+
+{
+  id:7, emoji:'🔧', level:2, color:'#c2410c',
+  title:'Solving Problems = Making Money',
+  desc:'Every dollar ever earned came from solving someone\'s problem.',
+  xp:100,
+  lessons:[
+    {
+      title:'Problems Are Opportunities',
+      content:`
+        <h3>Flip the Script: See Problems as Invitations</h3>
+        <p>Most people see a problem and think "that's annoying." Entrepreneurs see the same problem and think "that's a business opportunity." The bigger the problem and the more people it affects, the bigger the potential business.</p>
+        <div class="fun-fact">Travis Kalanick couldn't get a taxi on a snowy night in Paris. That frustration became Uber — now worth over $60 billion. Reed Hastings was charged a $40 late fee by Blockbuster. That frustration became Netflix. Some of the world's biggest companies were born from a single moment of genuine irritation.</div>
+        <div class="info-box">💼 A simple test for any business idea: "Would someone pay me to make this problem go away?" If yes, you have the beginning of a business. The willingness to pay is the signal that the problem is real enough to build on.</div>
+      `,
+      quiz:{
+        q:'What do entrepreneurs see when they encounter a frustrating problem?',
+        options:[
+          {text:'A reason to complain and demand someone else fix it', correct:false},
+          {text:'A potential business opportunity worth exploring and solving', correct:true},
+          {text:'Proof that the market is already too crowded to enter', correct:false},
+          {text:'A sign that the problem is too complex to address profitably', correct:false}
+        ],
+        feedback:{ok:'Exactly! Entrepreneurs reframe problems as opportunities. The bigger the problem and the more people it affects, the bigger the potential business.'}
+      }
+    },
+    {
+      title:'Finding Problems Worth Solving',
+      content:`
+        <h3>Not All Problems Are Equal</h3>
+        <p>There are millions of problems in the world, but not all of them make great businesses. The best business problems share three qualities.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🔍 The 3 Qualities of a Great Business Problem</div>
+          <p><strong>1. Widespread:</strong> Many people experience this problem — the more people, the bigger the potential market.</p>
+          <p><strong>2. Painful enough:</strong> People are frustrated enough to pay for a solution. A mild inconvenience won't motivate buying.</p>
+          <p><strong>3. Poorly solved so far:</strong> Existing solutions are bad, expensive, or hard to access — leaving room for you to do better.</p>
+        </div>
+        <div class="fun-fact">Before Airbnb, finding affordable accommodation in a new city was expensive and limited to hotels. The problem was widespread (millions of travelers), painful (high costs), and poorly solved. Airbnb addressed all three — connecting homeowners with travelers. Today it's worth over $75 billion.</div>
+      `,
+      quiz:{
+        q:'Which quality makes a problem most suitable to build a business around?',
+        options:[
+          {text:'The problem is highly complex and demands very specialized knowledge', correct:false},
+          {text:'Very few people experience it which keeps market competition low', correct:false},
+          {text:'Widespread, painful enough to pay for, and currently solved poorly', correct:true},
+          {text:'The problem was already fully solved by several large companies', correct:false}
+        ],
+        feedback:{ok:'Right! The best business problems are widespread, painful enough to motivate buying, and currently poorly solved — leaving a clear opening for a better solution.'}
+      }
+    },
+    {
+      title:'Your Problem-Spotting Practice',
+      content:`
+        <h3>Train Your Brain to See Opportunities</h3>
+        <p>Problem-spotting is a skill — and like any skill, it improves with practice. Entrepreneurs actively look for problems in their daily lives instead of passively accepting frustrations.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🧠 Problem-Spotting Methods</div>
+          <p><strong>Frustration journal:</strong> Write down every time you think "why isn't there a better way to do this?"</p>
+          <p><strong>Reddit/reviews mining:</strong> Read 1-star reviews and complaint threads — they're gold mines of real problems people pay to solve.</p>
+          <p><strong>Watch what people do:</strong> Notice where people waste time, work around limitations, or pay too much.</p>
+          <p><strong>Talk to people:</strong> Ask "what's the most annoying part of your day?" Their answers are business ideas.</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 7-Day Problem Diary</div>
+          <p>For the next 7 days, write down every problem, frustration, or "there should be a better way" moment you notice. At the end, review your list — you'll likely have 5-10 genuine business ideas hiding in there.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What is one of the best places to find real problems people desperately want solved?',
+        options:[
+          {text:'Looking at what products the most successful companies already sell', correct:false},
+          {text:'Reading negative reviews and complaint threads about existing products', correct:true},
+          {text:'Asking your friends what their favorite products and apps are', correct:false},
+          {text:'Checking what subjects are most popular in business school courses', correct:false}
+        ],
+        feedback:{ok:'Correct! Negative reviews and complaints are goldmines for business ideas — they show exactly where existing solutions are failing and what people urgently want fixed.'}
+      },
+      practice:{
+        scenario:'You want to find a business idea that could actually work. Ask AI to help you analyze your daily routine and identify 3 real problems in YOUR life that could potentially become a business!',
+        hint:'The more specific you are about your daily life, the better AI can spot real opportunities. Describe your actual routine — school, hobbies, chores, frustrations.',
+        placeholder:'Try: "Analyze my daily routine and help me find business opportunities. My day involves [describe your typical day, school, activities, frustrations]. Identify 3 specific problems I experience that could become a business, and explain why each one has commercial potential."'
+      }
+    }
+  ]
+},
+
+{
+  id:8, emoji:'👥', level:2, color:'#0369a1',
+  title:'Your Customer',
+  desc:'Know your customer better than they know themselves.',
+  xp:100,
+  lessons:[
+    {
+      title:'The Customer Is the Boss',
+      content:`
+        <h3>Sam Walton Said It Best</h3>
+        <p>Sam Walton, the founder of Walmart, famously said: <em>"There is only one boss — the customer. And they can fire everybody in the company, from the chairman on down, simply by deciding to spend their money somewhere else."</em></p>
+        <p>Every business decision — what to make, how to price it, how to market it — should start with the customer. Businesses that forget this fail. Businesses that obsess over their customers tend to win.</p>
+        <div class="info-box">💼 Amazon's founder Jeff Bezos famously left an empty chair in meetings to represent "the customer." The idea: every decision should consider what the customer would think. This customer obsession helped Amazon grow from a bookstore to the world's largest retailer.</div>
+      `,
+      quiz:{
+        q:'Why is understanding your customer considered the foundation of every business decision?',
+        options:[
+          {text:'Because customer revenue is what ultimately funds all employee salaries', correct:false},
+          {text:'Because government rules legally require customer research for businesses', correct:false},
+          {text:'Because customers decide where to spend — they hold ultimate power', correct:true},
+          {text:'Because customers always understand products better than businesses do', correct:false}
+        ],
+        feedback:{ok:'Exactly! Customers hold the ultimate power — they choose where to spend their money. Every business that forgets this eventually gets replaced by one that remembers.'}
+      }
+    },
+    {
+      title:'Customer Personas',
+      content:`
+        <h3>Who Exactly Are You Selling To?</h3>
+        <p>"Everyone" is not a customer. The best businesses know exactly who their ideal customer is — their age, what they care about, what problems they have, and why they'd choose to buy. This detailed picture is called a <strong>customer persona</strong>.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">👤 Building a Customer Persona</div>
+          <p><strong>Demographics:</strong> Age, location, income, job or school grade.</p>
+          <p><strong>Goals:</strong> What are they trying to achieve or experience?</p>
+          <p><strong>Pain points:</strong> What frustrates them that your product could solve?</p>
+          <p><strong>Buying behavior:</strong> Where do they shop? What do they read? Who influences them?</p>
+          <p><strong>Objections:</strong> Why might they NOT buy? What would stop them?</p>
+        </div>
+        <div class="fun-fact">Nike doesn't just sell shoes. Their target customer persona is someone who sees themselves as an athlete — even if they exercise just occasionally. Nike's entire brand speaks to that identity. "Just Do It" is addressed directly to that persona's inner voice.</div>
+      `,
+      quiz:{
+        q:'Why do businesses create specific customer personas instead of targeting "everyone"?',
+        options:[
+          {text:'Government marketing laws require formal target audience documentation', correct:false},
+          {text:'Specific messages resonate more and convert target buyers more reliably', correct:true},
+          {text:'Targeting everyone costs significantly more and needs much larger budgets', correct:false},
+          {text:'Niche target customers always spend more per purchase than general ones', correct:false}
+        ],
+        feedback:{ok:'Right! Specific personas allow you to speak directly to real needs and desires. A message crafted for one type of person resonates far more than a generic message aimed at everyone.'}
+      }
+    },
+    {
+      title:'Listening to Your Customer',
+      content:`
+        <h3>The Most Valuable Business Skill: Listening</h3>
+        <p>Most businesses make products they think customers want, then are surprised when no one buys. Successful entrepreneurs talk to customers <em>before</em> building anything — then keep listening as they grow.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">👂 Ways to Listen to Customers</div>
+          <p><strong>Interviews:</strong> Ask 5-10 real potential customers about their problems. Listen more than you speak.</p>
+          <p><strong>Surveys:</strong> Gather data from many people at once using simple questions.</p>
+          <p><strong>Reviews analysis:</strong> Read what people say about similar products. Their words reveal what matters most.</p>
+          <p><strong>Testing:</strong> Make a simple version and watch how real people use it. Their behavior reveals truth.</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 5-Question Interview Challenge</div>
+          <p>Interview 3 people who might be customers for a business idea you have. Ask: What's the hardest part of [problem area]? How do you currently solve it? How much would you pay for a perfect solution? Their answers will tell you everything.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What is the most reliable way to understand what customers truly want?',
+        options:[
+          {text:'Studying what your competitors are currently selling successfully', correct:false},
+          {text:'Trusting your own gut instinct and personal experience', correct:false},
+          {text:'Talking directly to real potential customers and listening carefully', correct:true},
+          {text:'Analyzing social media trends and popular hashtags online', correct:false}
+        ],
+        feedback:{ok:'Correct! Nothing beats talking directly to real potential customers. Their words, hesitations, and behavior reveal what actually matters — which is often different from what you assumed.'}
+      },
+      practice:{
+        scenario:'You have a business idea and want to test if real customers would actually pay for it. Ask AI to help you design a 5-question customer interview script — questions that reveal whether the problem is real and the solution is wanted!',
+        hint:'Great interview questions are open-ended (not yes/no), focus on the customer\'s current behavior and pain, and avoid leading them toward your solution. Ask AI to explain why each question works.',
+        placeholder:'Try: "Help me create a 5-question customer interview script to test this business idea: [describe your idea]. Make each question open-ended, focused on understanding current pain rather than pitching my solution, and explain why each question is important."'
+      }
+    }
+  ]
+},
+
+{
+  id:9, emoji:'📊', level:2, color:'#6d28d9',
+  title:'Price, Cost & Profit',
+  desc:'The numbers that tell you if a business actually works.',
+  xp:100,
+  lessons:[
+    {
+      title:'The Profit Formula',
+      content:`
+        <h3>The Most Important Equation in Business</h3>
+        <p>Every business comes down to one equation: <strong>Revenue − Costs = Profit</strong>. If profit is positive, the business is making money. If it's negative, the business is losing money. That's it.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">💰 Key Business Numbers</div>
+          <p><strong>Revenue:</strong> Total money coming IN from sales. (Price × Units sold)</p>
+          <p><strong>Costs:</strong> Total money going OUT to run the business. (Materials + labor + rent + marketing)</p>
+          <p><strong>Profit:</strong> What's LEFT after all costs. Revenue − Costs = Profit.</p>
+          <p><strong>Profit Margin:</strong> Profit as a percentage of revenue. High margins = more efficient business.</p>
+        </div>
+        <div class="fun-fact">Apple has one of the highest profit margins of any company in history — around 25-30%. For every $100 of products sold, Apple keeps $25-30 as profit after all costs. Most businesses survive on much thinner margins (grocery stores average around 1-3%).</div>
+      `,
+      quiz:{
+        q:'If a business earns $500 in revenue and has $320 in costs, what is the profit?',
+        options:[
+          {text:'$820 — the total when revenue and costs are added together', correct:false},
+          {text:'$320 — the total amount spent on running all business operations', correct:false},
+          {text:'$180 — what remains after all operating costs are subtracted', correct:true},
+          {text:'$500 — the total gross amount earned from all sales combined', correct:false}
+        ],
+        feedback:{ok:'Correct! Profit = Revenue − Costs = $500 − $320 = $180. This is the fundamental equation every business must understand.'}
+      }
+    },
+    {
+      title:'Setting the Right Price',
+      content:`
+        <h3>Pricing Is a Superpower — Use It Wisely</h3>
+        <p>Pricing is one of the most powerful — and most misunderstood — decisions in business. Set too low and you work hard but make little. Set too high and nobody buys. Getting it right requires understanding three approaches.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🏷️ Three Pricing Approaches</div>
+          <p><strong>Cost-Plus:</strong> Calculate your costs, then add a profit margin. Simple but ignores what customers will actually pay.</p>
+          <p><strong>Competitor-Based:</strong> Price similar to what competitors charge. Safe, but keeps you from standing out.</p>
+          <p><strong>Value-Based:</strong> Price based on the VALUE customers receive, not your costs. Most powerful — used by luxury and software brands.</p>
+        </div>
+        <div class="info-box">💼 A $5 coffee from Starbucks costs maybe $0.50 to make. Starbucks uses value-based pricing — you're not paying for coffee, you're paying for the experience, the brand, the wifi, and the comfortable chair. Understanding this unlocks massive profit potential.</div>
+      `,
+      quiz:{
+        q:'What makes value-based pricing the most powerful pricing strategy?',
+        options:[
+          {text:'It is by far the simplest and most accurate pricing method available', correct:false},
+          {text:'It charges based on the value customers receive, not production cost', correct:true},
+          {text:'It always guarantees your prices will beat every competitor out there', correct:false},
+          {text:'It is a mandatory pricing rule for all luxury and premium products', correct:false}
+        ],
+        feedback:{ok:'Right! Value-based pricing captures what the product is actually worth to the customer — which is often far more than the cost to produce it. This creates higher profits and stronger positioning.'}
+      }
+    },
+    {
+      title:'Break-Even and Profit Goals',
+      content:`
+        <h3>When Does Your Business Actually Start Making Money?</h3>
+        <p>Before a business makes profit, it must first <strong>break even</strong> — earn enough to cover all its costs. Every sale before break-even is just paying off the costs. Every sale after break-even is pure profit.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📐 Break-Even Calculation</div>
+          <p><strong>Fixed Costs:</strong> Costs you pay regardless of sales. (Website, equipment, rent)</p>
+          <p><strong>Variable Costs:</strong> Costs that change with each sale. (Materials, packaging)</p>
+          <p><strong>Break-Even Point:</strong> Fixed Costs ÷ (Price − Variable Cost per unit)</p>
+          <p><strong>Example:</strong> $200 fixed costs ÷ ($15 price − $5 variable) = 20 units to break even.</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Calculate Your Break-Even</div>
+          <p>Pick a product you could sell. Estimate: What would your fixed costs be? What does each unit cost to make? What would you charge? Calculate how many units you need to sell before making any profit.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What does it mean for a business to "break even"?',
+        options:[
+          {text:'The business is starting to become very profitable and growing fast', correct:false},
+          {text:'The business earns exactly enough to cover all its costs with zero profit', correct:true},
+          {text:'The business has an equal number of customers gaining and leaving', correct:false},
+          {text:'The business has broken its previous revenue record for the month', correct:false}
+        ],
+        feedback:{ok:'Exactly! Break-even means revenue equals costs — no profit yet, but no loss either. Every unit sold beyond break-even generates real profit.'}
+      },
+      practice:{
+        scenario:'You want to test whether your business idea could actually make money. Ask AI to help you build a simple profit calculator — input your costs, price, and expected sales to see whether the numbers work!',
+        hint:'Give AI specific numbers for your idea. Ask it to show the math clearly, calculate break-even point, and suggest whether the pricing or cost structure needs adjusting.',
+        placeholder:'Try: "Help me build a simple profit model for this business: I plan to sell [product] for $[price]. My fixed costs are $[amount] and each unit costs $[amount] to make. Calculate my break-even point, monthly profit at [number] sales, and tell me if my pricing makes sense."'
+      }
+    }
+  ]
+},
+
+{
+  id:10, emoji:'📣', level:2, color:'#b91c1c',
+  title:'Marketing & Getting Noticed',
+  desc:'Having a great product is worthless if nobody knows it exists.',
+  xp:100,
+  lessons:[
+    {
+      title:'What Marketing Really Is',
+      content:`
+        <h3>Marketing Is Not Lying — It\'s Connecting</h3>
+        <p>Many people think marketing means tricking people into buying things. Real marketing is something completely different: it's about <strong>connecting the right product with the right people</strong> who genuinely need it.</p>
+        <p>Good marketing helps the right customers find your business. Bad marketing tries to convince the wrong people to buy something they don't need. The first builds a sustainable business; the second destroys trust.</p>
+        <div class="info-box">💼 Seth Godin, one of the world's most respected marketing thinkers, defines marketing as: "the generous act of helping someone solve a problem." That reframe changes everything — you're not selling AT people, you're helping people who already have the problem you solve.</div>
+        <div class="fun-fact">When Apple launched the iPod in 2001, they didn't say "1GB MP3 player." They said "1,000 songs in your pocket." Same product. Same technical specs. Completely different marketing. One speaks to engineers; the other speaks to human desire.</div>
+      `,
+      quiz:{
+        q:'What is the true purpose of good marketing?',
+        options:[
+          {text:'Convincing people to buy things they do not really need', correct:false},
+          {text:'Making products appear better than they actually are in real life', correct:false},
+          {text:'Connecting the right product with the people who genuinely need it', correct:true},
+          {text:'Spending as much money as possible to reach the largest audience', correct:false}
+        ],
+        feedback:{ok:'Exactly! Good marketing connects real solutions with people who genuinely have the problem. It\'s generous, not manipulative — and it builds lasting businesses.'}
+      }
+    },
+    {
+      title:'The Marketing Mix',
+      content:`
+        <h3>The 4 Ps Every Business Uses</h3>
+        <p>Marketing isn't just ads. It's everything about how your business presents itself to the world. Marketers organize this into the "4 Ps."</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📐 The 4 Ps of Marketing</div>
+          <p><strong>Product:</strong> What are you selling? What makes it better than alternatives?</p>
+          <p><strong>Price:</strong> How much do you charge? How does that compare to competitors?</p>
+          <p><strong>Place:</strong> Where do customers find and buy it? Online, in-store, at school?</p>
+          <p><strong>Promotion:</strong> How do you let people know it exists? Ads, word of mouth, social media, posters?</p>
+        </div>
+        <div class="fun-fact">McDonald's is masterful with all 4 Ps: consistent quality product, affordable pricing, restaurants on almost every corner (place), and billions spent on advertising (promotion). Their golden arches are one of the most recognizable symbols on Earth.</div>
+      `,
+      quiz:{
+        q:'In the 4 Ps of marketing, what does "Place" refer to?',
+        options:[
+          {text:'The physical location where the business office is registered', correct:false},
+          {text:'How and where customers can access and purchase the product', correct:true},
+          {text:'The neighborhood where most of your target customers live', correct:false},
+          {text:'The position of your product in the market compared to rivals', correct:false}
+        ],
+        feedback:{ok:'Right! "Place" is about distribution and access — where and how customers can find and buy your product, whether online, in stores, or delivered to their door.'}
+      }
+    },
+    {
+      title:'Word of Mouth: The Best Marketing',
+      content:`
+        <h3>The Most Powerful Marketing Is Free</h3>
+        <p>You can spend thousands of dollars on ads and get weak results. Or you can deliver an experience so good that customers tell their friends — for free. Word of mouth has always been the most trusted and effective form of marketing.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🗣️ Types of Word of Mouth</div>
+          <p><strong>Organic:</strong> Customers naturally tell people because the product genuinely impressed them.</p>
+          <p><strong>Referral programs:</strong> Reward customers for referring friends. (Dropbox gave free storage for referrals — grew from 100K to 4M users in 15 months.)</p>
+          <p><strong>Social proof:</strong> Reviews, testimonials, ratings. People trust other customers more than ads.</p>
+          <p><strong>Influencer:</strong> Trusted people with audiences share your product — often more believable than traditional advertising.</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Your Word of Mouth Plan</div>
+          <p>For any business idea: What would you need to do to make customers so delighted they'd tell 3 friends? That "delight factor" is your most powerful marketing asset.</p>
+        </div>
+      `,
+      quiz:{
+        q:'Why is word of mouth considered the most powerful form of marketing?',
+        options:[
+          {text:'It is the only marketing method that is completely free of charge', correct:false},
+          {text:'It reaches more people than any other channel including social media', correct:false},
+          {text:'People trust recommendations from real customers far more than paid advertising', correct:true},
+          {text:'It is impossible for competitors to copy or replicate this strategy', correct:false}
+        ],
+        feedback:{ok:'Correct! Trust is the key ingredient. A recommendation from a real person who has used the product carries far more weight than any paid advertisement.'}
+      },
+      practice:{
+        scenario:'You want to market your business idea without spending much money. Ask AI to design a zero-budget marketing plan using word of mouth, social proof, and creative outreach — tailored to your specific business idea!',
+        hint:'The best zero-budget marketing is highly specific to the product and audience. Give AI details about your business and who your customer is, then ask for creative ideas that cost nothing.',
+        placeholder:'Try: "Design a zero-budget marketing plan for my business idea: [describe it]. My target customer is [describe them]. Give me 5 specific tactics using word of mouth, social proof, and creative outreach that cost little or nothing to execute."'
+      }
+    }
+  ]
+},
+
+{
+  id:11, emoji:'🎯', level:2, color:'#065f46',
+  title:'Sales & Persuasion',
+  desc:'The skill that turns great ideas into actual businesses.',
+  xp:100,
+  lessons:[
+    {
+      title:'Sales Is Not a Dirty Word',
+      content:`
+        <h3>Everyone Sells — All the Time</h3>
+        <p>Most people think sales is something pushy people do to get your money. In reality, sales is just <strong>helping someone make a decision that benefits them</strong>. When you convince your parents to let you stay up late, you're selling. When you pitch a group project idea, you're selling. Sales is a life skill.</p>
+        <div class="info-box">💼 Every entrepreneur must be able to sell — their idea to investors, their product to customers, their vision to employees. Steve Jobs was famous for his ability to make people believe in products that didn't even exist yet. That's selling at its highest level.</div>
+        <div class="fun-fact">Before becoming a tech icon, Steve Jobs worked a summer job calling people on the phone to sell subscriptions. He later said learning to sell was one of the most important skills of his life — and it shaped everything Apple became.</div>
+      `,
+      quiz:{
+        q:'What is the most accurate way to describe effective selling?',
+        options:[
+          {text:'Pressuring someone until they feel obligated to make a purchase', correct:false},
+          {text:'Using clever tricks and techniques to overcome customer resistance', correct:false},
+          {text:'Helping someone make a decision that genuinely benefits them', correct:true},
+          {text:'Presenting a product as perfectly as possible regardless of its flaws', correct:false}
+        ],
+        feedback:{ok:'Exactly! The best selling isn\'t about pressure or tricks — it\'s about genuinely helping someone make a decision that serves their needs. That builds trust and repeat customers.'}
+      }
+    },
+    {
+      title:'Understanding What Customers Really Want',
+      content:`
+        <h3>Features vs Benefits — The Golden Rule of Selling</h3>
+        <p>Customers don't buy products — they buy the <em>results</em> those products give them. This is the most important insight in all of sales.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📌 Features vs Benefits</div>
+          <p><strong>Feature:</strong> What the product HAS or IS. ("This blender has a 1000-watt motor.")</p>
+          <p><strong>Benefit:</strong> What the customer GETS or FEELS. ("You'll make smoothies in 10 seconds — no more waiting.")</p>
+          <p>Always sell benefits. Features describe the product. Benefits describe the customer's improved life.</p>
+        </div>
+        <div class="fun-fact">Legendary ad man David Ogilvy once wrote an ad selling Rolls-Royce cars. The headline was: "At 60 miles an hour the loudest noise in this new Rolls-Royce comes from the electric clock." He never mentioned the engine specs. He sold the benefit: serene, whisper-quiet luxury. It became one of the most famous ads in history.</div>
+      `,
+      quiz:{
+        q:'What is the key difference between a product feature and a customer benefit?',
+        options:[
+          {text:'Features are included free while adding benefits always costs more money', correct:false},
+          {text:'Features describe what a product is; benefits describe what life improves', correct:true},
+          {text:'Features target advanced technical users while benefits target beginners', correct:false},
+          {text:'Features are purely subjective while benefits are always measurable facts', correct:false}
+        ],
+        feedback:{ok:'Right! Features describe the product. Benefits describe the customer\'s improved experience. Always lead with benefits — that\'s what people actually buy.'}
+      }
+    },
+    {
+      title:'The Art of the Pitch',
+      content:`
+        <h3>How to Explain Your Business in 60 Seconds</h3>
+        <p>Every entrepreneur needs an <strong>elevator pitch</strong> — a clear, compelling description of their business that can be delivered in about 60 seconds. The name comes from the idea that you should be able to explain your business in the time it takes to ride an elevator.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🎤 The Elevator Pitch Formula</div>
+          <p><strong>Hook:</strong> Start with the problem. ("Every year, students lose $200 on textbooks they use twice.")</p>
+          <p><strong>Solution:</strong> What you do. ("We built an app where students rent textbooks by the week.")</p>
+          <p><strong>Value:</strong> The benefit. ("Students save 80% on textbook costs.")</p>
+          <p><strong>Ask:</strong> What do you want? ("We're looking for 10 beta users to try it free.")</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Write Your Elevator Pitch</div>
+          <p>Pick a business idea and write a 60-second pitch using the formula above. Practice it out loud until it sounds natural. Then deliver it to one real person and get their honest feedback.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What is the purpose of an elevator pitch?',
+        options:[
+          {text:'To provide a fully detailed business plan to potential investors', correct:false},
+          {text:'To describe your business clearly and compellingly in under 60 seconds', correct:true},
+          {text:'A formal speech style that is only ever delivered inside office buildings', correct:false},
+          {text:'To prepare a scripted response for handling difficult customer complaints', correct:false}
+        ],
+        feedback:{ok:'Correct! An elevator pitch is a short, compelling explanation of your business — clear enough to deliver in 60 seconds and memorable enough to prompt a follow-up conversation.'}
+      },
+      practice:{
+        scenario:'You have a business idea but struggle to explain it clearly and excitingly. Ask AI to help you write a compelling 60-second elevator pitch using the Hook-Solution-Value-Ask formula!',
+        hint:'Give AI all the details about your idea. Ask for 2 versions — one for a potential customer and one for a potential investor — since each audience cares about different things.',
+        placeholder:'Try: "Help me write a 60-second elevator pitch for my business idea: [describe your idea]. Create two versions — one targeted at a potential customer and one for a potential investor. Use the Hook-Solution-Value-Ask formula for both."'
+      }
+    }
+  ]
+},
+
+// ═══════════════════════════
+// LEVEL 3 — ENTREPRENEUR MINDSET
+// ═══════════════════════════
+
+{
+  id:12, emoji:'📈', level:3, color:'#0e7490',
+  title:'Investing Basics',
+  desc:'Make your money work for you instead of the other way around.',
+  xp:100,
+  lessons:[
+    {
+      title:'What Is Investing?',
+      content:`
+        <h3>Putting Money to Work</h3>
+        <p>Saving keeps your money safe. Investing puts your money to work — it buys things that can grow in value over time, producing more money without you having to work more hours. This is how regular people build real wealth.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📊 Common Types of Investments</div>
+          <p><strong>Stocks:</strong> Tiny ownership pieces of real companies. If the company grows, your shares grow too.</p>
+          <p><strong>Index Funds:</strong> A bundle of many stocks together — lower risk, steady long-term growth.</p>
+          <p><strong>Real Estate:</strong> Owning property that appreciates in value or generates rental income.</p>
+          <p><strong>Your Own Business:</strong> Often the highest-return investment — but also highest risk.</p>
+          <p><strong>Skills & Education:</strong> Investing in your own knowledge and abilities — pays for life.</div>
+        </div>
+        <div class="fun-fact">If you had invested $1,000 in Amazon when it went public in 1997, it would be worth over $1.5 million today. That's the power of investing in companies solving real problems early.</div>
+      `,
+      quiz:{
+        q:'What is the key difference between saving and investing?',
+        options:[
+          {text:'Saving is always legal while investing carries significant legal dangers', correct:false},
+          {text:'Saving preserves money safely; investing risks it for potential growth', correct:true},
+          {text:'Saving consistently earns more than investing over the very long term', correct:false},
+          {text:'Investing is strictly reserved for adults who have large savings already', correct:false}
+        ],
+        feedback:{ok:'Exactly! Saving preserves money safely. Investing puts it to work — accepting some risk in exchange for the potential to grow your wealth over time.'}
+      }
+    },
+    {
+      title:'Risk and Return',
+      content:`
+        <h3>The Golden Rule of Investing</h3>
+        <p>In investing, there is one rule that never changes: <strong>higher potential returns come with higher risk</strong>. A savings account is safe but earns almost nothing. A startup investment could 10x your money — or go to zero.</p>
+        <p>Smart investors understand this trade-off and diversify — spreading money across different investments so one failure doesn't destroy everything.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">⚖️ Risk Levels</div>
+          <p><strong>Low risk/low return:</strong> Savings accounts, government bonds</p>
+          <p><strong>Medium risk/medium return:</strong> Index funds, blue-chip stocks</p>
+          <p><strong>High risk/high return:</strong> Individual stocks, startups, real estate</p>
+          <p><strong>Very high risk:</strong> Cryptocurrency, penny stocks, gambling</p>
+        </div>
+        <div class="info-box">💼 "Don't put all your eggs in one basket" is the oldest investing advice in the world — and still the most important. Diversification is the only free lunch in investing.</div>
+      `,
+      quiz:{
+        q:'What does "diversification" mean in investing?',
+        options:[
+          {text:'Investing only in the most stable and safe assets available', correct:false},
+          {text:'Spreading investments across different assets to reduce overall risk', correct:true},
+          {text:'Changing your investments every month to follow market trends', correct:false},
+          {text:'Investing in businesses from many different countries', correct:false}
+        ],
+        feedback:{ok:'Right! Diversification means spreading investments so one bad outcome doesn\'t destroy everything. It\'s the most fundamental risk management tool in investing.'}
+      }
+    },
+    {
+      title:'The Stock Market',
+      content:`
+        <h3>Owning Pieces of Real Companies</h3>
+        <p>When you buy a stock, you become a part-owner of a real company. If Nike sells more shoes and grows, your Nike stock is worth more. If they struggle, your stock might fall. You're sharing in the company's success — and its risks.</p>
+        <div class="fun-fact">Warren Buffett bought his first stock at age 11 — 6 shares of Cities Service at $38 each. He watched it fall to $27, panicked, then watched it recover to $40. He sold and made $5 profit. It later rose to $200. He called this his first investing lesson: patience beats panic.</div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Paper Portfolio Challenge</div>
+          <p>Without using real money: pick 5 companies whose products you use and love. Write down today's prices. In 3 months, check the prices again. Did your "gut feel" for good companies work? This is how you learn before investing real money.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What do you actually own when you buy a share of stock in a company?',
+        options:[
+          {text:'A loan that the company promises to pay back with interest', correct:false},
+          {text:'The right to receive the company\'s products for free each year', correct:false},
+          {text:'A small ownership stake in the actual company itself', correct:true},
+          {text:'A guarantee that the stock price will increase over time', correct:false}
+        ],
+        feedback:{ok:'Exactly! A stock is a tiny ownership piece of a real company. As the company grows and becomes more valuable, so does your share.'}
+      },
+      practice:{
+        scenario:'You want to start learning about investing but don\'t know where to begin. Ask AI to recommend 5 well-known companies that match your interests and explain why each might be an interesting stock to learn about — without recommending you actually buy anything!',
+        hint:'Connect your genuine interests to real companies. AI can help you understand what makes a company potentially strong without giving you specific financial advice.',
+        placeholder:'Try: "I\'m interested in [list your interests and hobbies]. Recommend 5 publicly traded companies related to these interests that would be interesting to research and learn about from an investing perspective. Explain what each company does and what makes it worth studying — without making actual investment recommendations."'
+      }
+    }
+  ]
+},
+
+{
+  id:13, emoji:'🏗️', level:3, color:'#92400e',
+  title:'Assets vs Liabilities',
+  desc:'The concept that separates people who build wealth from those who don\'t.',
+  xp:100,
+  lessons:[
+    {
+      title:'The Most Important Financial Idea',
+      content:`
+        <h3>One Idea That Changes Everything</h3>
+        <p>Robert Kiyosaki, author of <em>Rich Dad Poor Dad</em>, distilled wealth-building into one simple idea: <strong>rich people buy assets; everyone else buys liabilities thinking they are assets.</strong></p>
+        <div class="vocab-box">
+          <div class="vocab-title">🔑 The Key Definitions</div>
+          <p><strong>Asset:</strong> Something that puts money IN your pocket. It generates income or grows in value.</p>
+          <p><strong>Liability:</strong> Something that takes money OUT of your pocket. It costs you regularly.</p>
+        </div>
+        <p>By these definitions: a car is a liability (insurance, fuel, maintenance). A rental property is an asset (it generates rent). Your gaming console is a liability. A YouTube channel that earns ad revenue is an asset.</p>
+        <div class="info-box">💡 Most people spend their whole lives buying liabilities — cars, gadgets, subscriptions — wondering why they can't get ahead. Wealthy people prioritize buying assets first. The assets then pay for the liabilities.</div>
+      `,
+      quiz:{
+        q:'By the financial definition, what makes something an asset?',
+        options:[
+          {text:'It is a physical object that you own and can see and touch', correct:false},
+          {text:'It cost a large amount of money when you originally purchased it', correct:false},
+          {text:'It generates income or grows in value, putting money into your pocket', correct:true},
+          {text:'It is something that will still exist and work ten years from now', correct:false}
+        ],
+        feedback:{ok:'Right! An asset puts money IN your pocket — through income it generates or value it gains over time. That\'s the only definition that matters for building wealth.'}
+      }
+    },
+    {
+      title:'Assets You Can Build Right Now',
+      content:`
+        <h3>You Don\'t Need to Be Rich to Build Assets</h3>
+        <p>Most kids think building assets requires a lot of money. Not true. Some of the most powerful assets can be built with time, skills, and creativity — starting right now.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🌱 Kid-Accessible Assets</div>
+          <p><strong>Knowledge and skills:</strong> Learn valuable skills (coding, design, writing) that others will pay for.</p>
+          <p><strong>Content creation:</strong> A YouTube channel, blog, or social media following that earns money over time.</p>
+          <p><strong>Digital products:</strong> Printables, guides, or tools sold online that earn without ongoing work.</p>
+          <p><strong>Reputation:</strong> Being known as excellent at something in your community.</p>
+          <p><strong>Network:</strong> Relationships with motivated, skilled people who open doors for each other.</p>
+        </div>
+        <div class="fun-fact">Ryan Kaji started a YouTube channel reviewing toys at age 3. By age 9 he was earning over $29 million per year — from a channel (asset) his family built through consistent content creation.</div>
+      `,
+      quiz:{
+        q:'Which of these is the best example of an asset a young person could build today?',
+        options:[
+          {text:'Buying the latest gaming console with birthday money', correct:false},
+          {text:'Spending $200 on brand-name clothing and accessories', correct:false},
+          {text:'Building a skill or content channel that generates income over time', correct:true},
+          {text:'Saving all money in a jar under the bed for future use', correct:false}
+        ],
+        feedback:{ok:'Exactly! Skills and content channels are assets — they generate income or opportunity long after the initial effort. Gaming consoles and clothes are liabilities.'}
+      }
+    },
+    {
+      title:'The Balance Sheet Mindset',
+      content:`
+        <h3>Think Like a CFO of Your Own Life</h3>
+        <p>Every major company tracks its financial health using a <strong>balance sheet</strong> — a snapshot of all assets and liabilities. Smart individuals do the same thing for their personal finances.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📋 Personal Balance Sheet</div>
+          <p><strong>Assets column:</strong> Skills, savings, investments, business interests, valuable property.</p>
+          <p><strong>Liabilities column:</strong> Debts, subscriptions, things that cost money regularly.</p>
+          <p><strong>Net Worth:</strong> Total Assets − Total Liabilities = Your Financial Position</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Your Personal Balance Sheet</div>
+          <p>Write down everything you own that has value (assets). Then write down everything that costs you money (liabilities). Subtract liabilities from assets. That's your current net worth. Now ask: what can I do this month to add one asset or eliminate one liability?</p>
+        </div>
+      `,
+      quiz:{
+        q:'What does a personal "net worth" calculation tell you?',
+        options:[
+          {text:'How much money you earn every month from your job or business', correct:false},
+          {text:'The total value of everything you own before any costs', correct:false},
+          {text:'Your total financial position — all assets minus all liabilities', correct:true},
+          {text:'How much you have saved in all your accounts combined', correct:false}
+        ],
+        feedback:{ok:'Correct! Net worth = Total Assets − Total Liabilities. It\'s the true measure of your financial position — not what you earn, but what you keep and own.'}
+      },
+      practice:{
+        scenario:'You want to start tracking your own financial health like a mini-CFO. Ask AI to help you build a simple personal balance sheet template — customized for someone your age!',
+        hint:'A good template is easy to fill in and update. Ask AI to make it age-appropriate with examples of each category that actually apply to young people.',
+        placeholder:'Try: "Create a simple personal balance sheet template for a 10-12 year old. Include relevant examples of assets and liabilities that apply to kids, a simple net worth calculation, and a monthly update checklist to track progress over time."'
+      }
+    }
+  ]
+},
+
+{
+  id:14, emoji:'💥', level:3, color:'#7f1d1d',
+  title:'Risk & Failure',
+  desc:'Why failure is the most underrated ingredient of success.',
+  xp:100,
+  lessons:[
+    {
+      title:'Why Entrepreneurs Fail (And Why That\'s OK)',
+      content:`
+        <h3>Failure Is Not the Opposite of Success — It\'s Part of It</h3>
+        <p>Most people are taught to fear failure. Entrepreneurs are taught to learn from it. The truth is, almost every massively successful company failed multiple times before they figured it out.</p>
+        <div class="fun-fact">Before founding SpaceX, Elon Musk's first three rocket launches failed completely. He had enough money for one more launch. The fourth rocket succeeded — and changed the aerospace industry forever. Musk has said those failures taught him more than any success could have.</div>
+        <div class="info-box">💼 Jeff Bezos said Amazon has made "billions of dollars of failures." They launched Fire Phone — it flopped. Amazon Auctions — failed. But they also launched Amazon Web Services and Prime — two of the most profitable businesses in history. You can't get the wins without accepting the losses.</div>
+      `,
+      quiz:{
+        q:'How do the most successful entrepreneurs typically view failure?',
+        options:[
+          {text:'As a reason to quit and try something completely different', correct:false},
+          {text:'As embarrassing events to hide from investors and customers', correct:false},
+          {text:'As valuable feedback and learning that gets them closer to success', correct:true},
+          {text:'As inevitable proof that their original business idea was wrong', correct:false}
+        ],
+        feedback:{ok:'Exactly! Successful entrepreneurs treat failure as data — each failure reveals what doesn\'t work and points toward what does. It\'s feedback, not defeat.'}
+      }
+    },
+    {
+      title:'Calculated Risk',
+      content:`
+        <h3>Not All Risk Is Created Equal</h3>
+        <p>Being entrepreneurial doesn't mean being reckless. It means taking <strong>calculated risks</strong> — risks where the potential upside is worth the downside, and where you've done the work to make informed decisions.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🎲 Smart Risk Framework</div>
+          <p><strong>Upside:</strong> What's the best realistic outcome if this works?</p>
+          <p><strong>Downside:</strong> What's the worst outcome if this fails — can you survive it?</p>
+          <p><strong>Probability:</strong> How likely is success vs failure based on evidence?</p>
+          <p><strong>Alternatives:</strong> What else could you do with the same time and resources?</p>
+          <p><strong>Learning:</strong> Even if it fails, what will you have learned?</p>
+        </div>
+        <div class="info-box">💡 A great rule: never risk more than you can afford to lose. Small experiments with small bets are how smart entrepreneurs test ideas — before betting everything on them.</div>
+      `,
+      quiz:{
+        q:'What makes a risk "calculated" rather than simply reckless?',
+        options:[
+          {text:'The risk involves a very large amount of money or resources', correct:false},
+          {text:'The risk is taken quickly without spending too much time thinking', correct:false},
+          {text:'The potential upside, downside, and probability are carefully evaluated', correct:true},
+          {text:'The risk has been approved by an experienced business mentor', correct:false}
+        ],
+        feedback:{ok:'Right! Calculated risk means you\'ve evaluated the potential upside, assessed the downside, and made an informed decision — not a blind bet or an impulsive leap.'}
+      }
+    },
+    {
+      title:'Building Resilience',
+      content:`
+        <h3>Bouncing Back: The Entrepreneur\'s Most Important Skill</h3>
+        <p><strong>Resilience</strong> is the ability to recover from setbacks, adapt to change, and keep going in the face of difficulty. It's not something you either have or don't — it's a skill you build through practice.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🔋 How to Build Resilience</div>
+          <p><strong>Reframe failures:</strong> Ask "What did this teach me?" instead of "Why did I fail?"</p>
+          <p><strong>Small wins:</strong> Break big goals into small steps. Each small win builds confidence.</p>
+          <p><strong>Support network:</strong> Surround yourself with people who encourage and challenge you.</p>
+          <p><strong>Health habits:</strong> Sleep, exercise, and nutrition directly affect mental resilience.</p>
+          <p><strong>Perspective:</strong> Most failures that feel catastrophic today will be learning stories tomorrow.</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Failure to Lesson</div>
+          <p>Think of something that didn't work out the way you hoped recently. Write down: What happened? What did I learn? What would I do differently? What did this experience make me better at? Turn the failure into a lesson in writing.</div>
+        </div>
+      `,
+      quiz:{
+        q:'What is the most productive question to ask yourself after a business failure?',
+        options:[
+          {text:'"Why does everything always go wrong for me specifically?"', correct:false},
+          {text:'"Should I quit and choose a more stable career path instead?"', correct:false},
+          {text:'"What did this teach me and how can I use it going forward?"', correct:true},
+          {text:'"Who made mistakes that caused this outcome to happen?"', correct:false}
+        ],
+        feedback:{ok:'Exactly! "What did this teach me?" transforms a failure into a lesson. Resilient entrepreneurs extract learning from every setback rather than dwelling on the loss.'}
+      },
+      practice:{
+        scenario:'You tried a business idea and it didn\'t work out as planned. Ask AI to help you run a proper "Failure Autopsy" — a structured process for extracting maximum learning from what went wrong!',
+        hint:'Be honest and specific about what happened. Ask AI to guide you through a real analysis rather than just pep talk — specific lessons from specific mistakes are far more valuable.',
+        placeholder:'Try: "I tried [describe the business idea or project] and here\'s what happened: [describe what went wrong]. Help me run a failure autopsy — identify the root causes, what I could have done differently, what I learned, and what my next experiment should be."'
+      }
+    }
+  ]
+},
+
+{
+  id:15, emoji:'✨', level:3, color:'#4338ca',
+  title:'Building a Brand',
+  desc:'Why people buy from some businesses and ignore others that are just as good.',
+  xp:100,
+  lessons:[
+    {
+      title:'What Is a Brand?',
+      content:`
+        <h3>A Brand Is a Promise and a Feeling</h3>
+        <p>A brand is not just a logo or a name. A brand is the <strong>total feeling someone has</strong> when they think of your business. It's built from every interaction, every product, every post, every customer service call — all of it combined.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🎨 What Makes a Brand</div>
+          <p><strong>Name and logo:</strong> The visual identity people recognize.</p>
+          <p><strong>Values:</strong> What the business stands for and believes in.</p>
+          <p><strong>Voice:</strong> How the business communicates — formal, casual, funny, inspiring?</p>
+          <p><strong>Promise:</strong> What customers always get. (Apple: simple + beautiful. FedEx: it'll be there overnight.)</p>
+          <p><strong>Story:</strong> Why it was started and who it's for.</p>
+        </div>
+        <div class="fun-fact">Nike's "swoosh" logo was designed by a graphic design student named Carolyn Davidson in 1971 — for just $35. Today, the swoosh is one of the most recognized symbols in the world and Nike is worth over $30 billion. The logo didn't create the brand — the brand made the logo priceless.</div>
+      `,
+      quiz:{
+        q:'What does a business brand actually represent beyond its logo and name?',
+        options:[
+          {text:'The precise legal name that is registered with the government', correct:false},
+          {text:'The complete feeling and reputation a business creates in people\'s minds', correct:true},
+          {text:'The specific colors and fonts used in all company marketing materials', correct:false},
+          {text:'The size and age of the company compared to its competitors', correct:false}
+        ],
+        feedback:{ok:'Right! A brand is the total feeling and reputation built through every interaction, product, and communication. Logos and colors are just the visible tip of the iceberg.'}
+      }
+    },
+    {
+      title:'Your Personal Brand',
+      content:`
+        <h3>You Are Your First Brand</h3>
+        <p>Before you build a business brand, you have a personal brand — whether you're conscious of it or not. Your personal brand is what people think and say about you when you're not in the room. It's built by your actions, your work, your values, and how you treat people.</p>
+        <div class="info-box">💼 In today's world, your personal brand travels online. What you post, share, and say digitally forms impressions with people you've never met. Entrepreneurs who invest in building a strong, authentic personal brand often find that customers, investors, and opportunities come to them.</div>
+        <div class="fun-fact">Gary Vaynerchuk built a personal brand by posting daily content for years before making any money from it. That brand eventually became the foundation for a marketing agency worth hundreds of millions of dollars. The brand came first; the business came second.</div>
+      `,
+      quiz:{
+        q:'What is a "personal brand" in the business context?',
+        options:[
+          {text:'The clothing style and appearance you choose to present to others', correct:false},
+          {text:'A social media account you create specifically for business purposes', correct:false},
+          {text:'The reputation and impression you create through your actions and work', correct:true},
+          {text:'The formal title or job description that appears on your resume', correct:false}
+        ],
+        feedback:{ok:'Exactly! Your personal brand is the reputation and impression you create — through your work, values, and how you treat people. It exists whether you manage it or not.'}
+      }
+    },
+    {
+      title:'Building a Brand That Lasts',
+      content:`
+        <h3>Consistency Is the Secret Ingredient</h3>
+        <p>Great brands are built through <strong>consistency over time</strong>. Every interaction that matches the brand promise makes it stronger. Every interaction that violates it damages it. The biggest brand mistakes come from inconsistency.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🏆 Brand Building Principles</div>
+          <p><strong>Be consistent:</strong> Same values, voice, and quality — every time, everywhere.</p>
+          <p><strong>Be specific:</strong> Great brands stand for something specific, not everything.</p>
+          <p><strong>Be authentic:</strong> People can smell fake from miles away. Build from real values.</p>
+          <p><strong>Over-deliver:</strong> Give people more than they expected. That creates brand advocates.</p>
+          <p><strong>Tell your story:</strong> People connect with stories. Why did you start? What do you believe?</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Your Brand Statement</div>
+          <p>Write a 2-sentence brand statement for yourself or your business idea: "We help [who] achieve [what] by [how]. We believe [your core value]." This becomes your north star for every decision.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What is the most critical factor in building a strong, lasting brand over time?',
+        options:[
+          {text:'Investing the most budget possible into advertising and visual design', correct:false},
+          {text:'Consistency — reliably delivering the same quality and values always', correct:true},
+          {text:'Designing the most creative and unusual logo in your entire industry', correct:false},
+          {text:'Releasing new products and updated services as frequently as possible', correct:false}
+        ],
+        feedback:{ok:'Correct! Consistency is everything in brand building. Every interaction that matches your brand promise strengthens it. Inconsistency is the fastest way to destroy trust.'}
+      },
+      practice:{
+        scenario:'You want to build a strong brand for your business idea. Ask AI to help you develop a complete mini brand guide — including your values, voice, promise, and brand statement!',
+        hint:'The best brands are built from authentic values and a clear customer promise. Give AI specific details about your business idea and what you genuinely care about.',
+        placeholder:'Try: "Help me create a mini brand guide for my business idea: [describe it]. Include: 3 core brand values, the brand voice (how we communicate), our key promise to customers, a 2-sentence brand statement, and 3 things our brand will NEVER do."'
+      }
+    }
+  ]
+},
+
+{
+  id:16, emoji:'🚀', level:3, color:'#1e40af',
+  title:'Scaling & Growth',
+  desc:'How small businesses become big ones — and when to grow.',
+  xp:100,
+  lessons:[
+    {
+      title:'What Is Scaling?',
+      content:`
+        <h3>Doing More Without More of You</h3>
+        <p>Scaling means growing your business so it can serve more customers and make more money — without requiring you to work proportionally more hours. A business that requires you to do everything can only grow as fast as you can work. A scalable business grows beyond what any one person can do.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📐 Scalable vs Non-Scalable</div>
+          <p><strong>Non-scalable:</strong> Mowing lawns by hand. More customers = more hours. You are the bottleneck.</p>
+          <p><strong>Scalable:</strong> A lawn care company with 10 employees and a booking app. More customers = hire more staff, not more of you personally.</p>
+          <p><strong>Highly scalable:</strong> A software app. One million users costs almost the same to serve as 100 users.</p>
+        </div>
+        <div class="fun-fact">WhatsApp was bought by Facebook for $19 billion in 2014. At the time, WhatsApp had 55 employees serving 450 million users. That's 8 million users per employee — the definition of massive scale.</div>
+      `,
+      quiz:{
+        q:'What is the key difference between a scalable and a non-scalable business?',
+        options:[
+          {text:'Scalable businesses always earn significantly more than non-scalable ones', correct:false},
+          {text:'Scalable businesses grow revenue without effort growing proportionally', correct:true},
+          {text:'Non-scalable businesses are always smaller and less established overall', correct:false},
+          {text:'Scalable businesses always use technology while non-scalable rely on people', correct:false}
+        ],
+        feedback:{ok:'Exactly! A scalable business grows revenue without requiring the founder to work proportionally more. Systems, technology, and teams replace personal effort as the business grows.'}
+      }
+    },
+    {
+      title:'When to Grow',
+      content:`
+        <h3>Timing Is Everything</h3>
+        <p>Growing too fast can kill a business just as surely as growing too slowly. Scaling before you've proven your product works, found your customer, and figured out your profit model is a recipe for expensive disaster.</p>
+        <div class="info-box">💼 The startup world has a saying: "Do things that don't scale first." Do everything manually, serve your early customers personally, and learn everything you can before building systems to automate. Airbnb's founders personally photographed every early listing themselves. That non-scalable effort taught them what made listings successful.</div>
+        <div class="vocab-box">
+          <div class="vocab-title">✅ Signs You're Ready to Scale</div>
+          <p>• Customers keep coming back — strong retention and satisfaction</p>
+          <p>• Demand exceeds what you can supply alone</p>
+          <p>• You know exactly how you make money (the model is proven)</p>
+          <p>• You can document your process so others can follow it</p>
+          <p>• Growth won't break your quality or customer experience</p>
+        </div>
+      `,
+      quiz:{
+        q:'What is the most important sign that a business is ready to start scaling?',
+        options:[
+          {text:'The founder has raised enough money to hire a large team', correct:false},
+          {text:'The business has been operating for more than two full years', correct:false},
+          {text:'Demand consistently exceeds supply and the profit model is proven', correct:true},
+          {text:'A competitor is growing quickly and the business must keep pace', correct:false}
+        ],
+        feedback:{ok:'Right! You should scale when demand exceeds what you can supply AND you\'ve proven how to make money. Scaling an unproven model just makes problems bigger and more expensive.'}
+      }
+    },
+    {
+      title:'Growth Strategies',
+      content:`
+        <h3>Different Ways to Grow</h3>
+        <p>There's more than one way to grow a business. The best strategy depends on your specific business, your market, and what you're trying to achieve.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🗺️ Main Growth Strategies</div>
+          <p><strong>More customers:</strong> Reach new people who've never heard of you. (Marketing, referrals, new channels)</p>
+          <p><strong>More from existing customers:</strong> Sell more to people who already trust you. Often cheaper than finding new customers.</p>
+          <p><strong>New markets:</strong> Expand to new cities, countries, or demographics.</p>
+          <p><strong>New products:</strong> Sell new things to existing customers who already love your brand.</p>
+          <p><strong>Partnerships:</strong> Team up with complementary businesses to reach each other's customers.</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Growth Planning Challenge</div>
+          <p>Pick a business (real or imagined). Identify one specific action for each of the 5 growth strategies above. Which strategy seems most feasible to execute first with the least resources?</p>
+        </div>
+      `,
+      quiz:{
+        q:'Why is selling more to existing customers often better than finding new ones?',
+        options:[
+          {text:'Existing customers consistently spend significantly more per each purchase', correct:false},
+          {text:'Existing customers already trust you and cost much less to sell to again', correct:true},
+          {text:'Finding new customers is always more expensive than retaining existing ones', correct:false},
+          {text:'Existing customers are contractually required to keep buying from you', correct:false}
+        ],
+        feedback:{ok:'Exactly! Existing customers already trust you — acquiring that trust with a new customer costs significant time and money. Selling more to loyal customers is typically the most profitable growth strategy.'}
+      },
+      practice:{
+        scenario:'Your small business is doing well and you\'re thinking about growing. Ask AI to help you build a simple growth plan — identifying the best strategy for your specific business and the first 3 concrete steps to execute it!',
+        hint:'Be specific about your current situation. How many customers do you have? What\'s working? What\'s the constraint on growth right now? Give AI these details for a useful plan.',
+        placeholder:'Try: "Help me build a growth plan for my business: [describe it]. Currently I have [describe current situation — customers, revenue, what\'s working]. My biggest constraint to growth is [describe it]. Recommend the best growth strategy for my situation and give me the first 3 specific actions to take."'
+      }
+    }
+  ]
+},
+
+{
+  id:17, emoji:'📋', level:3, color:'#065f46',
+  title:'Your First Business Plan',
+  desc:'Turn everything you\'ve learned into a real plan for a real business.',
+  xp:100,
+  lessons:[
+    {
+      title:'Why You Need a Plan',
+      content:`
+        <h3>A Plan Isn\'t Just a Document — It\'s Thinking Made Visible</h3>
+        <p>A business plan forces you to answer all the hard questions before you start spending money: Who is the customer? What problem do you solve? How do you make money? What could go wrong?</p>
+        <p>The plan itself might change — but the thinking process of creating it is invaluable. Entrepreneurs who plan are far more likely to succeed than those who just jump in.</p>
+        <div class="info-box">💼 Amazon's Jeff Bezos famously writes detailed "press releases from the future" before starting any new project — imagining what success looks like and working backwards. This forces clarity about goals and obstacles before any resources are committed.</div>
+        <div class="fun-fact">The business plan for YouTube was literally one page when the founders wrote it in 2005. It wasn't the length that mattered — it was the clarity of thinking about the problem, the customer, and the revenue model.</div>
+      `,
+      quiz:{
+        q:'What is the most valuable part of writing a business plan?',
+        options:[
+          {text:'Producing a polished professional document to show investors and banks', correct:false},
+          {text:'The thinking process it forces — answering critical questions up front', correct:true},
+          {text:'Satisfying the legal requirements needed to register a new business', correct:false},
+          {text:'Writing a very lengthy document that demonstrates your commitment level', correct:false}
+        ],
+        feedback:{ok:'Exactly! The value of a business plan is the thinking it forces — answering hard questions before you spend time and money finding the answers expensively.'}
+      }
+    },
+    {
+      title:'The Business Plan Framework',
+      content:`
+        <h3>A Simple Framework for Any Business</h3>
+        <p>You don't need a 50-page document. A one-page business plan that answers these key questions is more valuable than a lengthy report that nobody reads.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">📄 One-Page Business Plan</div>
+          <p><strong>The Problem:</strong> What specific problem does this solve? Who has it?</p>
+          <p><strong>The Solution:</strong> What do you offer? How is it better than alternatives?</p>
+          <p><strong>The Customer:</strong> Who exactly will buy this? Describe them specifically.</p>
+          <p><strong>Revenue Model:</strong> How exactly do you make money? What's the price?</p>
+          <p><strong>The Numbers:</strong> What are your costs? When do you break even? What's the profit potential?</p>
+          <p><strong>First Steps:</strong> What are the first 3 things you'll do to get started?</p>
+          <p><strong>Biggest Risk:</strong> What's the most likely reason this might fail? How will you address it?</p>
+        </div>
+      `,
+      quiz:{
+        q:'What should a good one-page business plan prioritize above all else?',
+        options:[
+          {text:'Impressive visual charts, graphics, and professional document formatting', correct:false},
+          {text:'Honest answers to the hardest questions about viability and next steps', correct:true},
+          {text:'A thorough historical overview of the industry and all key competitors', correct:false},
+          {text:'Detailed financial projections covering the next ten years of operations', correct:false}
+        ],
+        feedback:{ok:'Right! Clarity and honest answers to critical questions are what matter. A simple plan with clear thinking beats a polished document full of vague assumptions.'}
+      }
+    },
+    {
+      title:'From Plan to Action',
+      content:`
+        <h3>The Best Business Plan Is One You Execute</h3>
+        <p>A plan that stays in a notebook is worthless. The goal is to take your first real action — talk to your first potential customer, build your first prototype, make your first sale. Starting transforms you from someone with an idea to an entrepreneur.</p>
+        <div class="vocab-box">
+          <div class="vocab-title">🚀 Your Launch Checklist</div>
+          <p>✅ Problem identified and validated with real people</p>
+          <p>✅ Customer persona written out specifically</p>
+          <p>✅ Revenue model and pricing decided</p>
+          <p>✅ Break-even calculated</p>
+          <p>✅ First minimum viable product (MVP) or service defined</p>
+          <p>✅ First 10 potential customers identified</p>
+          <p>✅ Elevator pitch written and practiced</p>
+          <p>✅ First action taken — today, not tomorrow</p>
+        </div>
+        <div class="challenge-box">
+          <div class="challenge-title">🎯 Your Academy Capstone</div>
+          <p>Complete your one-page business plan using everything you've learned in this course. Share it with one real person for feedback. Then take ONE real action this week toward making it real. Entrepreneurs ship — they don't just plan.</p>
+        </div>
+      `,
+      quiz:{
+        q:'What ultimately separates someone with a business idea from a real entrepreneur?',
+        options:[
+          {text:'Having a formally registered company with a bank account and logo', correct:false},
+          {text:'Earning more than $1,000 from their business in the first month', correct:false},
+          {text:'Taking real action — talking to customers, building something, making a sale', correct:true},
+          {text:'Having a fully completed and professionally formatted business plan', correct:false}
+        ],
+        feedback:{ok:'Exactly right! Action is what makes an entrepreneur. Ideas are common — execution is rare. Taking even one small real step toward your plan is what separates dreamers from builders.'}
+      },
+      practice:{
+        scenario:'You\'ve completed the entire Business Track! Now it\'s time to put it all together. Ask AI to help you build your complete one-page business plan for a real idea — using everything you\'ve learned in this course!',
+        hint:'This is your capstone. Be as specific and honest as possible. Use the full framework: Problem, Solution, Customer, Revenue Model, Numbers, First Steps, Biggest Risk. Ask AI to challenge your assumptions and find weaknesses.',
+        placeholder:'Try: "Help me build a complete one-page business plan for: [describe your idea]. Walk me through each section of the framework, challenge my assumptions, identify the 2 biggest risks, and give me my first 3 concrete action steps. Treat this seriously — I want honest feedback, not just encouragement."'
+      }
+    }
+  ]
+},
+
+]; // end modules
+
+// ──────────────────────────────────
+//  STATE
+// ──────────────────────────────────
+const TOTAL_XP = 1800;
+let state = { xp:0, completedLessons:{}, completedModules:{} };
+try { const s = sessionStorage.getItem('keypr_biz'); if(s) state = JSON.parse(s); } catch(e){}
+function saveState(){ try{ sessionStorage.setItem('keypr_biz', JSON.stringify(state)); }catch(e){} }
+function updateXPBar(){
+  const pct = Math.min((state.xp/TOTAL_XP)*100,100);
+  document.getElementById('xpFill').style.width = pct+'%';
+  document.getElementById('xpCount').textContent = state.xp+' / '+TOTAL_XP;
+}
+
+// ──────────────────────────────────
+//  DASHBOARD
+// ──────────────────────────────────
+function renderDashboard(){
+  const grids = {1:'gridL1', 2:'gridL2', 3:'gridL3'};
+  Object.values(grids).forEach(id => document.getElementById(id).innerHTML='');
+  modules.forEach((mod, idx) => {
+    const totalL = mod.lessons.length;
+    const doneL = mod.lessons.filter((_,li) => state.completedLessons[`${idx}-${li}`]).length;
+    const pct = totalL ? (doneL/totalL)*100 : 0;
+    const allDone = doneL === totalL;
+    const card = document.createElement('div');
+    card.className = 'module-card';
+    card.style.setProperty('--accent', mod.color);
+    card.style.animationDelay = (idx*0.06)+'s';
+    card.innerHTML = `
+      ${allDone ? '<div class="card-badge">✅</div>' : ''}
+      <span class="card-emoji">${mod.emoji}</span>
+      <div class="card-num">Module ${idx+1} · Level ${mod.level}</div>
+      <div class="card-title">${mod.title}</div>
+      <div class="card-desc">${mod.desc}</div>
+      <div class="card-xp">💰 ${mod.xp} XP</div>
+      <div class="card-progress"><div class="card-progress-fill" style="width:${pct}%"></div></div>
+    `;
+    card.onclick = () => openModal(idx);
+    document.getElementById(grids[mod.level]).appendChild(card);
+  });
+  updateXPBar();
+}
+
+// ──────────────────────────────────
+//  MODAL
+// ──────────────────────────────────
+let currentModule = 0, currentLesson = 0;
+
+function openModal(modIdx){
+  currentModule = modIdx; currentLesson = 0;
+  const mod = modules[modIdx];
+  document.getElementById('modalIcon').textContent = mod.emoji;
+  document.getElementById('modalTitle').textContent = mod.title;
+  renderLessonNav();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  renderDashboard();
+}
+
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if(e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+function renderLessonNav(){
+  const nav = document.getElementById('lessonNav');
+  nav.innerHTML = '';
+  modules[currentModule].lessons.forEach((les, li) => {
+    const btn = document.createElement('button');
+    btn.className = 'lesson-tab' + (li===currentLesson?' active':'') + (state.completedLessons[`${currentModule}-${li}`]?' done':'');
+    btn.textContent = `${li+1}. ${les.title}`;
+    btn.addEventListener('click', () => { currentLesson=li; renderLessonContent(); updateTabs(); });
+    nav.appendChild(btn);
+  });
+  renderLessonContent();
+}
+
+function updateTabs(){
+  document.getElementById('lessonNav').querySelectorAll('.lesson-tab').forEach((t,i) => {
+    t.classList.toggle('active', i===currentLesson);
+    t.classList.toggle('done', !!state.completedLessons[`${currentModule}-${i}`]);
+  });
+}
+
+function renderLessonContent(){
+  const mod = modules[currentModule];
+  const lesson = mod.lessons[currentLesson];
+  const key = `${currentModule}-${currentLesson}`;
+  const done = !!state.completedLessons[key];
+  let html = `<div class="lesson-panel">${lesson.content}`;
+
+  if(lesson.quiz){
+    const q = lesson.quiz;
+    html += `<div class="quiz-block"><h3>🧩 Quick Check: ${q.q}</h3><div class="quiz-options">`;
+    q.options.forEach((opt,oi) => {
+      html += `<button class="quiz-opt${done&&opt.correct?' correct':''}" onclick="answerQuiz(${oi})" ${done?'disabled':''}>${opt.text}</button>`;
+    });
+    html += `</div><div class="quiz-feedback${done?' show ok':''}" id="quizFeedback">${done?'✅ '+q.feedback.ok:''}</div></div>`;
+  }
+
+  if(lesson.practice){
+    const pr = lesson.practice;
+    html += `<div class="prompt-practice"><h3>🎯 Try It: Prompt Engineering Practice!</h3><p><strong>Scenario:</strong> ${pr.scenario}</p><p><em>💡 Tip: ${pr.hint}</em></p><div class="prompt-input-wrap"><textarea class="prompt-textarea" id="practiceInput" placeholder="${pr.placeholder}"></textarea><button class="send-btn" onclick="scorePractice()">⬆</button></div><div class="ai-response-wrap" id="practiceResponse"><div class="ai-response" id="practiceText"></div><div class="prompt-score" id="practiceScore"></div></div></div>`;
+  }
+
+  if(!done){
+    html += `<button class="complete-btn" onclick="completeLesson()">✅ Mark as Complete – Earn XP!</button>`;
+  } else {
+    const isLast = currentLesson === mod.lessons.length-1;
+    const isLastMod = currentModule === modules.length-1;
+    if(!isLast) html += `<button class="complete-btn" style="background:linear-gradient(135deg,#7c3aed,#5b21b6)" onclick="nextLesson()">➡️ Next Lesson</button>`;
+    else if(!isLastMod) html += `<button class="complete-btn" style="background:linear-gradient(135deg,#0369a1,#0e7490)" onclick="closeModal()">🚀 Module Complete! Back to Dashboard</button>`;
+    else html += `<button class="complete-btn" style="background:linear-gradient(135deg,#059669,#f59e0b)" onclick="closeModal()">🏆 Business Track Complete! You\'re an Entrepreneur!</button>`;
+  }
+
+  html += '</div>';
+  document.getElementById('lessonContent').innerHTML = html;
+}
+
+function answerQuiz(oi){
+  const q = modules[currentModule].lessons[currentLesson].quiz;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled=true);
+  const ok = q.options[oi].correct;
+  opts[oi].classList.add(ok?'correct':'wrong');
+  opts.forEach((o,i) => { if(q.options[i].correct) o.classList.add('correct'); });
+  const fb = document.getElementById('quizFeedback');
+  fb.classList.add('show', ok?'ok':'bad');
+  fb.textContent = (ok?'✅ ':'❌ ') + q.feedback.ok;
+}
+
+function scorePractice(){
+  const input = document.getElementById('practiceInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const responseEl = document.getElementById('practiceText');
+  const scoreEl = document.getElementById('practiceScore');
+  const wrap = document.getElementById('practiceResponse');
+  responseEl.textContent = 'Evaluating your prompt... 💼';
+  wrap.classList.add('show');
+  let score = 0;
+  const words = text.split(/\s+/).length;
+  if(words >= 8) score += 25;
+  if(words >= 15) score += 15;
+  if(/explain|describe|create|write|help|build|design|analyze|compare|develop/i.test(text)) score += 20;
+  if(/simple|clear|specific|example|real|practical|actionable|step/i.test(text)) score += 20;
+  if(/age|year.old|kid|student|beginner|audience|format|list/i.test(text)) score += 20;
+  const stars = score>=80?'⭐⭐⭐⭐⭐':score>=60?'⭐⭐⭐⭐':score>=40?'⭐⭐⭐':'⭐⭐';
+  const feedback = score>=80?'Outstanding prompt! Specific, clear, and well-targeted. You think like an entrepreneur! 🚀'
+    :score>=60?'Solid prompt! Try adding more context about the audience or asking for a specific format.'
+    :score>=40?'Good start! Make it more specific — who is this for, and what exact output do you want?'
+    :'Keep developing this prompt! Add detail: who is the audience, what format, how specific?';
+  setTimeout(() => {
+    responseEl.textContent = feedback;
+    scoreEl.textContent = `${stars} Prompt Score: ${score}/100`;
+  }, 600);
+}
+
+function nextLesson(){
+  currentLesson++;
+  renderLessonContent();
+  updateTabs();
+  document.getElementById('lessonContent').scrollTop = 0;
+}
+
+function completeLesson(){
+  const key = `${currentModule}-${currentLesson}`;
+  if(state.completedLessons[key]) return;
+  state.completedLessons[key] = true;
+  const xpEarned = Math.floor(modules[currentModule].xp / modules[currentModule].lessons.length);
+  state.xp = Math.min(state.xp+xpEarned, TOTAL_XP);
+  saveState();
+  updateXPBar();
+  showToast('💰','XP Earned!',`+${xpEarned} XP — great work!`);
+  dropMoney();
+  const mod = modules[currentModule];
+  const allDone = mod.lessons.every((_,li) => state.completedLessons[`${currentModule}-${li}`]);
+  if(allDone && !state.completedModules[currentModule]){
+    state.completedModules[currentModule] = true;
+    saveState();
+    setTimeout(() => showToast('💼','Module Complete!',`${mod.title} — well done!`), 1200);
+  }
+  renderLessonContent();
+  updateTabs();
+}
+
+let toastTimer;
+function showToast(icon, title, msg){
+  clearTimeout(toastTimer);
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function dropMoney(){
+  const rain = document.createElement('div');
+  rain.className = 'money-rain';
+  document.body.appendChild(rain);
+  for(let i=0;i<18;i++){
+    const drop = document.createElement('div');
+    drop.className = 'money-drop';
+    drop.textContent = ['💰','💵','💎','🏆','✨'][Math.floor(Math.random()*5)];
+    drop.style.left = Math.random()*100+'vw';
+    drop.style.animationDuration = (1.2+Math.random()*1.4)+'s';
+    drop.style.animationDelay = (Math.random()*0.6)+'s';
+    drop.style.fontSize = (1+Math.random()*1.1)+'rem';
+    rain.appendChild(drop);
+  }
+  setTimeout(() => rain.remove(), 2500);
+}
+
+// ──────────────────────────────────
+//  QUIZ LENGTH AUDIT (dev helper — remove in prod)
+// ──────────────────────────────────
+// Uncomment to verify no bias on load:
+// window.addEventListener('load', () => {
+//   let bad=0;
+//   modules.forEach((mod,mi) => mod.lessons.forEach((les,li) => {
+//     if(!les.quiz) return;
+//     const lens = les.quiz.options.map(o=>o.text.length);
+//     const ci = les.quiz.options.findIndex(o=>o.correct);
+//     if(lens[ci]===Math.max(...lens) && lens.filter(l=>l===Math.max(...lens)).length===1 && Math.max(...lens)-Math.min(...lens)>15){
+//       console.warn(`Bias: M${mi}L${li} — ${les.quiz.q.substring(0,40)}`);
+//       bad++;
+//     }
+//   }));
+//   console.log(`Quiz audit: ${bad} flagged`);
+// });
+
+renderDashboard();
+</script>
 </body>
 </html>
