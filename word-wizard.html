@@ -681,22 +681,6 @@ function fillCardDefinition(idx, def){
     exEl.innerHTML = `<div class="card-example">"${escapeHTML(def.example)}"</div>`;
   }
 }
-      ? `<div class="card-example">"${escapeHTML(def.example)}"</div>`
-      : '';
-    return `
-      <div class="card" data-word="${escapeHTML(word)}">
-        <div class="card-top">
-          <span class="card-word">${escapeHTML(word)}</span>
-          ${tag ? `<span class="card-tag">${escapeHTML(tag)}</span>` : ''}
-        </div>
-        <div class="card-def">${escapeHTML(defText)}</div>
-        ${exampleHTML}
-        <div class="card-actions">
-          <button class="use-btn" data-word="${escapeHTML(word)}">+ Add to word bank</button>
-        </div>
-      </div>
-    `;
-  }
 
   function escapeHTML(str){
     return String(str).replace(/[&<>"']/g, s => ({
