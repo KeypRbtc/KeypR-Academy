@@ -633,25 +633,24 @@
   }
 
   async function fetchDefinition(word){
-    try {
-      const controller = new AbortController();
-const timeoutId = setTimeout(() => controller.abort(), 5000);
-const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`, { signal: controller.signal });
-clearTimeout(timeoutId);
-      if (!res.ok) return null;
-      const data = await res.json();
-      const entry = data[0];
-      const meaning = entry?.meanings?.[0];
-      const def = meaning?.definitions?.[0];
-      return {
-        partOfSpeech: meaning?.partOfSpeech || '',
-        definition: def?.definition || '',
-        example: def?.example || ''
-      };
-    } catch(e){
-      return null;
-    }
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const res = await fetch(`https://freedictionaryapi.com/api/v1/entries/en/${encodeURIComponent(word)}`, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const entry = data?.entries?.[0];
+    const sense = entry?.senses?.[0];
+    return {
+      partOfSpeech: entry?.partOfSpeech || '',
+      definition: sense?.definition || '',
+      example: sense?.examples?.[0] || ''
+    };
+  } catch(e){
+    return null;
   }
+}
 
   function cardShellHTML(word, idx){
   return `
