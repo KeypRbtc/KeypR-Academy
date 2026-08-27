@@ -305,6 +305,7 @@
     opacity:0.7;
     white-space:nowrap;
   }
+  .card-tag:empty{ display:none; }
   .card-def{
     font-size:13.5px;
     line-height:1.55;
@@ -652,10 +653,35 @@ clearTimeout(timeoutId);
     }
   }
 
-  function cardHTML(word, def){
-    const tag = def?.partOfSpeech ? def.partOfSpeech : '';
-    const defText = def?.definition || "No dictionary entry found — try it in a sentence and see if it fits.";
-    const exampleHTML = def?.example
+  function cardShellHTML(word, idx){
+  return `
+    <div class="card" data-word="${escapeHTML(word)}">
+      <div class="card-top">
+        <span class="card-word">${escapeHTML(word)}</span>
+        <span class="card-tag" id="tag-${idx}"></span>
+      </div>
+      <div class="card-def" id="def-${idx}">Loading definition…</div>
+      <div id="example-${idx}"></div>
+      <div class="card-actions">
+        <button class="use-btn" data-word="${escapeHTML(word)}">+ Add to word bank</button>
+      </div>
+    </div>
+  `;
+}
+
+function fillCardDefinition(idx, def){
+  const defEl = document.getElementById(`def-${idx}`);
+  const tagEl = document.getElementById(`tag-${idx}`);
+  const exEl = document.getElementById(`example-${idx}`);
+  if (!defEl) return;
+  defEl.textContent = def?.definition || "No dictionary entry found — try it in a sentence and see if it fits.";
+  if (def?.partOfSpeech && tagEl){
+    tagEl.textContent = def.partOfSpeech;
+  }
+  if (def?.example && exEl){
+    exEl.innerHTML = `<div class="card-example">"${escapeHTML(def.example)}"</div>`;
+  }
+}
       ? `<div class="card-example">"${escapeHTML(def.example)}"</div>`
       : '';
     return `
@@ -708,20 +734,21 @@ clearTimeout(timeoutId);
 
     statusEl.textContent = `${candidates.length} words to consider for "${word}":`;
 
-    // fetch definitions in parallel, but render progressively
-    resultsEl.innerHTML = candidates.map(c => `<div class="card" data-placeholder="${escapeHTML(c.word)}"></div>`).join('');
-    const placeholders = resultsEl.querySelectorAll('[data-placeholder]');
+        statusEl.textContent = `${candidates.length} words to consider for "${word}":`;
 
-    await Promise.all(candidates.map(async (c, i) => {
-      const def = await fetchDefinition(c.word);
-      if (queryId !== lastQuery) return;
-      placeholders[i].outerHTML = cardHTML(c.word, def);
-    }));
-
-    if (queryId !== lastQuery) return;
+    // Show the words immediately; definitions load in afterward and don't block anything
+    resultsEl.innerHTML = candidates.map((c, i) => cardShellHTML(c.word, i)).join('');
     wheel.classList.remove('spinning');
     goBtn.disabled = false;
     attachUseButtons();
+
+    candidates.forEach((c, i) => {
+      fetchDefinition(c.word).then(def => {
+        if (queryId !== lastQuery) return;
+        fillCardDefinition(i, def);
+      });
+    });
+  }
   }
 
   function attachUseButtons(){
