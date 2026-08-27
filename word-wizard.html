@@ -36,7 +36,6 @@
 
   a{color:inherit;}
 
-  /* ---------- Layout shell ---------- */
   .wrap{
     max-width:880px;
     margin:0 auto;
@@ -96,7 +95,6 @@
   }
   .back-link:hover{ opacity:1; }
 
-  /* ---------- Hero ---------- */
   .hero{
     text-align:center;
     padding:64px 0 28px;
@@ -130,7 +128,6 @@
     font-weight:500;
   }
 
-  /* ---------- The Wheel / search ---------- */
   .wheel-zone{
     display:flex;
     justify-content:center;
@@ -204,7 +201,6 @@
   .go-btn:active{ transform: translateY(0); }
   .go-btn:disabled{ opacity:0.4; cursor:default; }
 
-  /* mode toggle */
   .mode-toggle{
     display:flex;
     justify-content:center;
@@ -238,7 +234,6 @@
     line-height:1.5;
   }
 
-  /* overused word nudge */
   .nudge{
     display:none;
     max-width:520px;
@@ -253,7 +248,6 @@
   }
   .nudge strong{ text-transform:capitalize; }
 
-  /* status */
   .status{
     text-align:center;
     margin-top:36px;
@@ -262,7 +256,6 @@
     min-height:20px;
   }
 
-  /* ---------- results ---------- */
   .results{
     margin-top:30px;
     display:grid;
@@ -340,7 +333,6 @@
     color:var(--black);
   }
 
-  /* word bank */
   .bank{
     margin-top:56px;
     border-top:1px solid var(--line);
@@ -397,7 +389,6 @@
     font-style:italic;
   }
 
-  /* why it matters */
   .why{
     margin-top:56px;
     border:1px solid var(--line);
@@ -440,7 +431,6 @@
     opacity:0.5;
   }
 
-  /* toast */
   .toast{
     position:fixed;
     left:50%;
@@ -605,8 +595,13 @@
     }
   }
 
+  function escapeHTML(str){
+    return String(str).replace(/[&<>"']/g, s => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[s]));
+  }
+
   async function fetchCandidates(word){
-    // Try strict synonyms first, fall back to "means like" for broader recall
     const synRes = await fetch(`https://api.datamuse.com/words?rel_syn=${encodeURIComponent(word)}&md=f&max=24`);
     let list = synRes.ok ? await synRes.json() : [];
     if (list.length < 6) {
@@ -615,77 +610,66 @@
       const seen = new Set(list.map(w => w.word));
       mlList.forEach(w => { if (!seen.has(w.word)) { list.push(w); seen.add(w.word); } });
     }
-    // strip the original word and multi-word phrases
     list = list.filter(w => w.word.toLowerCase() !== word.toLowerCase() && !w.word.includes(' '));
 
-    // frequency tag looks like "f:12.34" (occurrences per million words)
     const withFreq = list.map(w => {
       const tag = (w.tags || []).find(t => t.startsWith('f:'));
       return { word: w.word, freq: tag ? parseFloat(tag.slice(2)) : 0 };
     });
 
     withFreq.sort((a,b) => mode === 'advanced' ? a.freq - b.freq : b.freq - a.freq);
-
-    // For advanced mode, ignore ultra-rare noise (freq 0 often means junk/misspelling)
     const filtered = mode === 'advanced' ? withFreq.filter(w => w.freq > 0) : withFreq;
-
     return filtered.slice(0, 8);
   }
 
   async function fetchDefinition(word){
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-    const res = await fetch(`https://freedictionaryapi.com/api/v1/entries/en/${encodeURIComponent(word)}`, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (!res.ok) return null;
-    const data = await res.json();
-    const entry = data?.entries?.[0];
-    const sense = entry?.senses?.[0];
-    return {
-      partOfSpeech: entry?.partOfSpeech || '',
-      definition: sense?.definition || '',
-      example: sense?.examples?.[0] || ''
-    };
-  } catch(e){
-    return null;
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      const res = await fetch(`https://freedictionaryapi.com/api/v1/entries/en/${encodeURIComponent(word)}`, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!res.ok) return null;
+      const data = await res.json();
+      const entry = data?.entries?.[0];
+      const sense = entry?.senses?.[0];
+      return {
+        partOfSpeech: entry?.partOfSpeech || '',
+        definition: sense?.definition || '',
+        example: sense?.examples?.[0] || ''
+      };
+    } catch(e){
+      return null;
+    }
   }
-}
 
   function cardShellHTML(word, idx){
-  return `
-    <div class="card" data-word="${escapeHTML(word)}">
-      <div class="card-top">
-        <span class="card-word">${escapeHTML(word)}</span>
-        <span class="card-tag" id="tag-${idx}"></span>
+    return `
+      <div class="card" data-word="${escapeHTML(word)}">
+        <div class="card-top">
+          <span class="card-word">${escapeHTML(word)}</span>
+          <span class="card-tag" id="tag-${idx}"></span>
+        </div>
+        <div class="card-def" id="def-${idx}">Loading definition…</div>
+        <div id="example-${idx}"></div>
+        <div class="card-actions">
+          <button class="use-btn" data-word="${escapeHTML(word)}">+ Add to word bank</button>
+        </div>
       </div>
-      <div class="card-def" id="def-${idx}">Loading definition…</div>
-      <div id="example-${idx}"></div>
-      <div class="card-actions">
-        <button class="use-btn" data-word="${escapeHTML(word)}">+ Add to word bank</button>
-      </div>
-    </div>
-  `;
-}
-
-function fillCardDefinition(idx, def){
-  const defEl = document.getElementById(`def-${idx}`);
-  const tagEl = document.getElementById(`tag-${idx}`);
-  const exEl = document.getElementById(`example-${idx}`);
-  if (!defEl) return;
-  defEl.textContent = def?.definition || "No dictionary entry found — try it in a sentence and see if it fits.";
-  if (def?.partOfSpeech && tagEl){
-    tagEl.textContent = def.partOfSpeech;
+    `;
   }
-  if (def?.example && exEl){
-    exEl.innerHTML = `<div class="card-example">"${escapeHTML(def.example)}"</div>`;
-  }
-}
 
-  function escapeHTML(str){
-    return String(str).replace(/[&<>"']/g, s => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[s]));
+  function fillCardDefinition(idx, def){
+    const defEl = document.getElementById(`def-${idx}`);
+    const tagEl = document.getElementById(`tag-${idx}`);
+    const exEl = document.getElementById(`example-${idx}`);
+    if (!defEl) return;
+    defEl.textContent = def?.definition || "No dictionary entry found — try it in a sentence and see if it fits.";
+    if (def?.partOfSpeech && tagEl){
+      tagEl.textContent = def.partOfSpeech;
+    }
+    if (def?.example && exEl){
+      exEl.innerHTML = `<div class="card-example">"${escapeHTML(def.example)}"</div>`;
+    }
   }
 
   async function runSearch(word){
@@ -706,7 +690,7 @@ function fillCardDefinition(idx, def){
       return;
     }
 
-    if (queryId !== lastQuery) return; // a newer search superseded this one
+    if (queryId !== lastQuery) return;
 
     if (!candidates.length){
       statusEl.textContent = `No alternatives found for "${word}" — try a simpler or more common word.`;
@@ -717,9 +701,6 @@ function fillCardDefinition(idx, def){
 
     statusEl.textContent = `${candidates.length} words to consider for "${word}":`;
 
-        statusEl.textContent = `${candidates.length} words to consider for "${word}":`;
-
-    // Show the words immediately; definitions load in afterward and don't block anything
     resultsEl.innerHTML = candidates.map((c, i) => cardShellHTML(c.word, i)).join('');
     wheel.classList.remove('spinning');
     goBtn.disabled = false;
@@ -731,7 +712,6 @@ function fillCardDefinition(idx, def){
         fillCardDefinition(i, def);
       });
     });
-  }
   }
 
   function attachUseButtons(){
@@ -745,7 +725,6 @@ function fillCardDefinition(idx, def){
     });
   }
 
-  // ---- word bank (sessionStorage) ----
   function getBank(){
     try { return JSON.parse(sessionStorage.getItem('keypr_word_bank') || '[]'); }
     catch(e){ return []; }
