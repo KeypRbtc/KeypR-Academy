@@ -452,6 +452,111 @@
     transform: translateX(-50%) translateY(0);
   }
 
+  .section-divider{
+    margin:88px 0 56px;
+    text-align:center;
+    position:relative;
+  }
+  .section-divider::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; top:50%;
+    border-top:1px solid var(--line);
+    z-index:0;
+  }
+  .section-divider span{
+    position:relative;
+    z-index:1;
+    background:var(--black);
+    padding:0 18px;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    opacity:0.5;
+    font-weight:700;
+  }
+
+  #sentenceInput{
+    width:100%;
+    background:var(--smoke);
+    border:1px solid var(--line);
+    border-radius:16px;
+    color:var(--white);
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:600;
+    font-size:16px;
+    line-height:1.5;
+    padding:16px 18px;
+    outline:none;
+    resize:vertical;
+    min-height:96px;
+  }
+  #sentenceInput::placeholder{ color:rgba(255,255,255,0.35); font-weight:500; }
+
+  .finding{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 18px 16px;
+    background:var(--smoke);
+    margin-bottom:14px;
+    animation: rise .45s ease both;
+  }
+  .finding-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .finding-tag{
+    font-size:9.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:800;
+    padding:3px 9px;
+    border-radius:999px;
+    border:1px solid var(--white);
+    white-space:nowrap;
+  }
+  .finding-title{
+    font-size:15px;
+    font-weight:800;
+  }
+  .finding-body{
+    font-size:13.5px;
+    line-height:1.6;
+    opacity:0.85;
+  }
+  .finding-body code{
+    background:rgba(255,255,255,0.08);
+    padding:1px 6px;
+    border-radius:6px;
+    font-family:inherit;
+    font-weight:700;
+  }
+  .finding-swaps{
+    margin-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .swap-chip{
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 12px;
+    font-size:12.5px;
+    font-weight:700;
+    opacity:0.85;
+  }
+  .all-clear{
+    text-align:center;
+    padding:32px 20px;
+    border:1px dashed var(--line);
+    border-radius:16px;
+    font-size:14px;
+    opacity:0.75;
+    line-height:1.6;
+  }
+
   @media (max-width: 520px){
     header.top{ padding:20px 16px; }
     .wrap{ padding:0 16px 60px; }
@@ -459,7 +564,7 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    .wheel, .wheel-core, .card{ transition:none; animation:none; }
+    .wheel, .wheel-core, .card, .finding{ transition:none; animation:none; }
   }
 </style>
 </head>
@@ -526,6 +631,30 @@
     </div>
   </details>
 
+  <div class="section-divider"><span>Sentence Coach</span></div>
+
+  <section class="hero" style="padding-top:0;">
+    <div class="eyebrow">Whole-sentence practice</div>
+    <h1 style="font-size:clamp(28px, 5vw, 44px);">Now try<br><span>a whole sentence.</span></h1>
+    <p class="subhead">Paste or type a sentence you wrote. The Coach won't rewrite it for you — it'll show you exactly what to look at, the way a good teacher marks up a draft. You do the rewriting.</p>
+  </section>
+
+  <textarea id="sentenceInput" placeholder="Type or paste one sentence here…" maxlength="400"></textarea>
+  <div style="text-align:center; margin-top:14px;">
+    <button class="go-btn" id="checkBtn">Check my sentence</button>
+  </div>
+
+  <div class="status" id="sentenceStatus"></div>
+  <div id="findingsResults" style="margin-top:24px;"></div>
+
+  <details class="why" style="margin-top:40px;">
+    <summary>Why won't it just rewrite the sentence for me?</summary>
+    <div class="why-body">
+      <p>Because the rewriting is the whole point. Rhetoric — the third pillar of the trivium, after grammar and logic — is the skill of arranging your own words for effect. That skill only grows when you're the one doing the arranging.</p>
+      <p>A tool that quietly swaps in a "better" sentence teaches you to trust the tool instead of your own ear. A tool that points and says <em>"this part is weak, and here's why"</em> teaches you to hear it yourself next time — until eventually you don't need the tool at all.</p>
+    </div>
+  </details>
+
   <footer>
     KeypR Academy — Knowledge is the real asset.
   </footer>
@@ -555,6 +684,19 @@
     very: "Very is a crutch word — it usually means the next word isn't strong enough on its own."
   };
 
+  const VERY_ADJ = {
+    tired: "exhausted", big: "enormous", small: "tiny", happy: "thrilled", sad: "miserable",
+    scared: "terrified", hungry: "starving", cold: "freezing", hot: "scorching", good: "excellent",
+    bad: "awful", fast: "rapid", slow: "sluggish", loud: "deafening", quiet: "silent",
+    smart: "brilliant", funny: "hilarious", pretty: "stunning", ugly: "hideous",
+    strong: "powerful", weak: "feeble", old: "ancient", angry: "furious", clean: "spotless",
+    dirty: "filthy", bright: "dazzling", dark: "pitch-black", easy: "effortless", hard: "grueling"
+  };
+
+  const STOPWORDS = new Set(("a an the and or but is was were are be been being in on at to of for "
+    + "with it that this i you he she they we as so if than then my your his her their our up down "
+    + "out over under again further not no nor too very s t can will just don").split(' '));
+
   const wheel = document.getElementById('wheel');
   const input = document.getElementById('wordInput');
   const goBtn = document.getElementById('goBtn');
@@ -567,8 +709,14 @@
   const bankListEl = document.getElementById('bankList');
   const bankCountEl = document.getElementById('bankCount');
 
+  const sentenceInput = document.getElementById('sentenceInput');
+  const checkBtn = document.getElementById('checkBtn');
+  const sentenceStatusEl = document.getElementById('sentenceStatus');
+  const findingsEl = document.getElementById('findingsResults');
+
   let mode = 'vivid';
   let lastQuery = 0;
+  let cardCounter = 0;
 
   const HINTS = {
     vivid: "Vivid: clear, colorful upgrades most writers your age reach for. Try Advanced when you want rarer, more sophisticated words to stretch toward.",
@@ -672,6 +820,41 @@
     }
   }
 
+  // Renders a row of word-alternative cards into any container element.
+  // Returns nothing; fills definitions in progressively.
+  async function renderWordCards(word, containerEl){
+    let candidates = [];
+    try {
+      candidates = await fetchCandidates(word);
+    } catch(e){
+      return;
+    }
+    if (!candidates.length) return;
+
+    const startIdx = cardCounter;
+    const shellHTML = candidates.map((c, i) => cardShellHTML(c.word, startIdx + i)).join('');
+    const rowWrap = document.createElement('div');
+    rowWrap.className = 'results';
+    rowWrap.innerHTML = shellHTML;
+    containerEl.appendChild(rowWrap);
+    cardCounter += candidates.length;
+
+    rowWrap.querySelectorAll('.use-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        addToBank(btn.dataset.word);
+        btn.classList.add('used');
+        btn.textContent = 'Added ✓';
+        btn.disabled = true;
+      });
+    });
+
+    candidates.forEach((c, i) => {
+      fetchDefinition(c.word).then(def => {
+        fillCardDefinition(startIdx + i, def);
+      });
+    });
+  }
+
   async function runSearch(word){
     const queryId = ++lastQuery;
     wheel.classList.add('spinning');
@@ -701,7 +884,9 @@
 
     statusEl.textContent = `${candidates.length} words to consider for "${word}":`;
 
-    resultsEl.innerHTML = candidates.map((c, i) => cardShellHTML(c.word, i)).join('');
+    const startIdx = cardCounter;
+    resultsEl.innerHTML = candidates.map((c, i) => cardShellHTML(c.word, startIdx + i)).join('');
+    cardCounter += candidates.length;
     wheel.classList.remove('spinning');
     goBtn.disabled = false;
     attachUseButtons();
@@ -709,7 +894,7 @@
     candidates.forEach((c, i) => {
       fetchDefinition(c.word).then(def => {
         if (queryId !== lastQuery) return;
-        fillCardDefinition(i, def);
+        fillCardDefinition(startIdx + i, def);
       });
     });
   }
@@ -784,6 +969,153 @@
       const word = input.value.trim();
       if (word) runSearch(word);
     }
+  });
+
+  // ============== SENTENCE COACH ==============
+
+  function findingCard(tag, title, bodyHTML){
+    return `
+      <div class="finding">
+        <div class="finding-head">
+          <span class="finding-tag">${escapeHTML(tag)}</span>
+          <span class="finding-title">${escapeHTML(title)}</span>
+        </div>
+        <div class="finding-body">${bodyHTML}</div>
+      </div>
+    `;
+  }
+
+  function analyzeSentence(sentence){
+    const findings = [];
+    const trimmed = sentence.trim();
+    const words = trimmed.match(/[A-Za-z']+/g) || [];
+    const lowerWords = words.map(w => w.toLowerCase());
+
+    // 1. Overused words
+    const foundOverused = [...new Set(lowerWords.filter(w => OVERUSED[w]))];
+    foundOverused.forEach(w => {
+      findings.push({ type: 'weakword', word: w, note: OVERUSED[w] });
+    });
+
+    // 2. very + adjective
+    for (let i = 0; i < lowerWords.length - 1; i++){
+      if (lowerWords[i] === 'very' && VERY_ADJ[lowerWords[i+1]]){
+        findings.push({ type: 'veryadj', phrase: `very ${lowerWords[i+1]}`, swap: VERY_ADJ[lowerWords[i+1]] });
+      }
+    }
+
+    // 3. Repetition (non-stopwords appearing 2+ times)
+    const freq = {};
+    lowerWords.forEach(w => {
+      if (!STOPWORDS.has(w) && w.length > 2){
+        freq[w] = (freq[w] || 0) + 1;
+      }
+    });
+    const repeated = Object.keys(freq).filter(w => freq[w] >= 2 && !OVERUSED[w]);
+    repeated.forEach(w => {
+      findings.push({ type: 'repeat', word: w, count: freq[w] });
+    });
+
+    // 4. Passive voice heuristic (regular -ed/-en participles, plus irregular ones via the "by" agent pattern)
+    const passiveMatch = /\b(am|is|are|was|were|be|being|been)\s+\w+(ed|en)\b/i.test(trimmed)
+      || /\b(am|is|are|was|were|be|being|been)\s+\w+\s+by\b/i.test(trimmed);
+    if (passiveMatch){
+      findings.push({ type: 'passive' });
+    }
+
+    // 5. Weak starters
+    const starterMatch = trimmed.match(/^(There\s+(?:was|were|is|are))\s+(?:a\s+|an\s+|the\s+)?([^,.;]+?)(?:\s+(?:that|who|which)\b|[,.;]|$)/i)
+      || trimmed.match(/^(It\s+(?:was|is))\s+/i);
+    if (starterMatch){
+      findings.push({ type: 'starter', starter: starterMatch[1], subject: starterMatch[2] || '' });
+    }
+
+    // 6. Run-on length
+    if (words.length > 25){
+      const conjMatch = trimmed.match(/\b(and|but|so|because)\b/i);
+      findings.push({ type: 'runon', wordCount: words.length, conjunction: conjMatch ? conjMatch[1] : null });
+    }
+
+    return findings;
+  }
+
+  function renderFindings(findings, sentence){
+    findingsEl.innerHTML = '';
+
+    if (!findings.length){
+      findingsEl.innerHTML = `<div class="all-clear">Nice and precise! No obvious upgrades found here — but read it out loud. Does it say exactly what you mean?</div>`;
+      return;
+    }
+
+    findings.forEach(f => {
+      if (f.type === 'veryadj'){
+        findingsEl.insertAdjacentHTML('beforeend', findingCard(
+          'Quick swap',
+          `"${f.phrase}" → "${f.swap}"`,
+          `A single strong word almost always beats "very" plus a weak one. Try replacing <code>${escapeHTML(f.phrase)}</code> with <code>${escapeHTML(f.swap)}</code>.`
+        ));
+      } else if (f.type === 'passive'){
+        findingsEl.insertAdjacentHTML('beforeend', findingCard(
+          'Structure',
+          'Possible passive voice',
+          `This sentence may be in passive voice — where the thing being acted on comes before the doer of the action (or the doer disappears entirely). Ask yourself: <em>who or what is actually doing the action?</em> Try putting that word first.`
+        ));
+      } else if (f.type === 'starter'){
+        findingsEl.insertAdjacentHTML('beforeend', findingCard(
+          'Structure',
+          `Generic starter: "${f.starter}"`,
+          `Starting with <code>${escapeHTML(f.starter)}</code> buries the interesting part of the sentence. ${f.subject ? `Try starting with the subject instead — something like beginning the sentence with <code>${escapeHTML(f.subject.trim())}</code> and building from there.` : `Try leading with the subject or an action instead.`}`
+        ));
+      } else if (f.type === 'runon'){
+        findingsEl.insertAdjacentHTML('beforeend', findingCard(
+          'Structure',
+          `Long sentence (${f.wordCount} words)`,
+          `That's a lot packed into one sentence. ${f.conjunction ? `Look at the word <code>${escapeHTML(f.conjunction)}</code> — that's often a natural place to split into two sentences.` : `See if there's a natural break where it could become two sentences instead of one.`}`
+        ));
+      } else if (f.type === 'repeat'){
+        const container = document.createElement('div');
+        container.className = 'finding';
+        container.innerHTML = `
+          <div class="finding-head">
+            <span class="finding-tag">Repetition</span>
+            <span class="finding-title">"${escapeHTML(f.word)}" used ${f.count}×</span>
+          </div>
+          <div class="finding-body">Using the same word twice close together can feel repetitive. Consider swapping one occurrence:</div>
+        `;
+        findingsEl.appendChild(container);
+        renderWordCards(f.word, container);
+      } else if (f.type === 'weakword'){
+        const container = document.createElement('div');
+        container.className = 'finding';
+        container.innerHTML = `
+          <div class="finding-head">
+            <span class="finding-tag">Weak word</span>
+            <span class="finding-title">"${escapeHTML(f.word)}"</span>
+          </div>
+          <div class="finding-body">${escapeHTML(f.note)}</div>
+        `;
+        findingsEl.appendChild(container);
+        renderWordCards(f.word, container);
+      }
+    });
+  }
+
+  checkBtn.addEventListener('click', () => {
+    const sentence = sentenceInput.value.trim();
+    if (!sentence){
+      sentenceStatusEl.textContent = 'Type a sentence first.';
+      findingsEl.innerHTML = '';
+      return;
+    }
+    sentenceStatusEl.textContent = 'Reading your sentence…';
+    findingsEl.innerHTML = '';
+    setTimeout(() => {
+      const findings = analyzeSentence(sentence);
+      sentenceStatusEl.textContent = findings.length
+        ? `Found ${findings.length} thing${findings.length === 1 ? '' : 's'} worth a look:`
+        : '';
+      renderFindings(findings, sentence);
+    }, 250);
   });
 
   renderBank();
